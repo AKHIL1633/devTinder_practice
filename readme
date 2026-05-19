@@ -1,2 +1,20 @@
 package.json is kind of index for your project 
 
+
+Crud operations 
+
+Different type of http requests 
+
+Post / Signup
+Post /login
+Get /Profile
+Post /profile
+Patch /profile
+Delete /profile
+Post /sendRequest -------ignore
+                  -------interested
+Post /reviewRequest ------- accept
+                    -------reject
+
+Get /requests
+Get/Connections
