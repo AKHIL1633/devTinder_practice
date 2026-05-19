@@ -1,56 +1,41 @@
-// // console.log("Starting a new Project");
-
-// const express=require("express");
-
-// const app=express();
-
-// // app.use("/",(req,res)=>{
-// //     res.send("Namaste from the Akhil  dashboard ");
-// // })
-
-// app.use ("/hello",(req,res)=>{
-//     res.send("Hello hello hello");
-// })
-
-// app.use("/test",(req,res)=>{
-//   res.send("Hello from the server!");
-// });
-
-// app.listen(7777,()=>{
-//     console.log("Server is successfully listening on port 3000 ......");
-// });
-
-// // the sequence of the code matters here 
-// //the code will run start running from the top ,order is very important 
-
 const express=require("express");
+const app=express();
 
-const app=express()
+const {adminAuth,userAuth}= require("./middlewares/auth.js");
+// Handle Auth Middleware for all request get ,post 
+// if you want  get request then used get only 
 
-//use will match all the Http method Api calls 
-//This will only handle Get call to /user
+// you can use  app.all("/admin")
+//Always make app.use instead of app.all 
 
+app.use("/admin",adminAuth);
+// app.use("/user",userAuth);
 
-app.use("/user",(req,res)=>{
-    res.send("Hahahaha");
+//if the middleware sent the response then it is okay otherwise it is not okay 
+
+app.post("/user/login",()=>{
+    res.send("User logged in successfully");
+});
+
+app.get("/user/data",userAuth,(req,res)=>{
+    res.send("User Data Sent");
+});
+
+app.get("/user",userAuth,(req,res) => {
+    res.send("User Data Sent");
 })
 
-app.get("/user",(req,res) =>{
-    res.send({firstName: "Akshay", lastName: "Saini"});
+app.get("/admin/getAllData",(req,res) =>{
+     res.send("All Data Sent");
+});
+
+app.get("/admin/deleteUser",(req,res) =>{
+     res.send("Delete a user");
 })
 
-//saving data to the db
-app.post("/user",(req,res)=>{
-    console.log("Save Data to the database");
-    res.send("Data successfully saved to the database ");
-})
+app.listen(7777,()=>{
+    console.log("Server is successfully listening on port 7777....");
+});
 
 
-app.delete("/user",(req,res)=>{
-    res.send("Deleted successfully");
-})
 
- 
-app.listen(7777,() => {
-    console.log("Server is successfully listening on port 7777...");
-})

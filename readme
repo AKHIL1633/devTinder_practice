@@ -18,3 +18,484 @@ Post /reviewRequest ------- accept
 
 Get /requests
 Get/Connections
+
+
+
+// // console.log("Starting a new Project");
+
+// const express=require("express");
+
+// const app=express();
+
+// // app.use("/",(req,res)=>{
+// //     res.send("Namaste from the Akhil  dashboard ");
+// // })
+
+// app.use ("/hello",(req,res)=>{
+//     res.send("Hello hello hello");
+// })
+
+// app.use("/test",(req,res)=>{
+//   res.send("Hello from the server!");
+// });
+
+// app.listen(7777,()=>{
+//     console.log("Server is successfully listening on port 3000 ......");
+// });
+
+// // the sequence of the code matters here 
+// //the code will run start running from the top ,order is very important 
+
+// const express=require("express");
+
+// const app=express()
+
+// //use will match all the Http method Api calls 
+// //This will only handle Get call to /user
+
+
+// app.use("/user",(req,res)=>{
+//     res.send("Hahahaha");
+// })
+
+// app.get("/user",(req,res) =>{
+//     res.send({firstName: "Akshay", lastName: "Saini"});
+// })
+
+// //saving data to the db
+// app.post("/user",(req,res)=>{
+//     console.log("Save Data to the database");
+//     res.send("Data successfully saved to the database ");
+// })
+
+
+// app.delete("/user",(req,res)=>{
+//     res.send("Deleted successfully");
+// })
+
+ 
+// app.listen(7777,() => {
+//     console.log("Server is successfully listening on port 7777...");
+// })
+
+
+// const express=require("express");
+
+// const app=express();
+
+// // req /user ,/user/xyz ,/user
+
+// app.get("/user",(req,res)=>{
+//     res.send({firstName:"Akshay", lastName:"Saini"});
+// })
+
+
+// app.listen(7777,()=>{
+//     console.log("Server is successfully listening on port 7777....");
+// })
+
+
+// /ab?c  ==> for ac it will also work ,it will work for abc as well
+//b is optional here 
+
+
+// /ab+c  ===>for abc it will work ,abbc ,abbbc ,abbbbbc it will also work 
+//it should match the pattern 
+
+// /ab*cd  abcd it will work ,* means anything in between 
+
+// /a(bc)?d here bc is optional 
+
+// /a(bc)+d here abcd will work ,abcbcd will also work 
+
+
+// app.get(/a/)
+//if anything of my path contain a it will work 
+//this regex  means that in the path if a is there it will work 
+
+
+// app.get(/.*fly$/)
+//it means you can start anything from the starting and if it end with the fly it will work 
+
+// butterfly ,fly ,dragonfly
+// dragonfly1 will fail 
+
+
+//  dynamic 
+
+// http://localhost:7777/user?userId=101
+
+// how to get in the controller or the router handler 
+
+// make use of query params 
+
+// // app.get("/user",(req,res) => {
+//     console.log(req.query);
+//     res.send({firstName:"Akshay", lastName: "Saini"});
+// });
+
+
+// http://localhost:7777/user?userId=101 & password=testing 
+//req.query will give the userid and password 
+
+// to handle the dynamic query
+//http://localhost:7777/user/707
+//app.get("/user/:userId",(req,res) =>{
+// console.log(req.params);
+//res.send({firstName: "Akshay" , lastName:"Saini"});
+//});
+
+
+// you can do in this way as well 
+
+
+// http://localhost:7777/user/707/Akshay/testing 
+//you will find all the parameter 
+
+
+
+// app.get("/user/:userId/:name/:password",(req,res)=>{
+//     console.log(req.params);
+//     res.send({firstName:"Akshay",lastName :"Saini"});
+// });
+
+
+
+---------------------------------------------
+making use of next() 
+
+
+const express=require("express");
+const app=express();
+
+
+//route handler 
+// if we send the empty route handler ,it will  keep on sending
+// you will not get the response back ,there will be time out hit 
+///user is the route 
+// it will execute the code line by line 
+//as Javascript is syronochous ,it will give line by line 
+//if there is no first response,then it will move to the second route handler 
+//if we put next on the first route then we can move to the next route handler 
+
+// code will run line by line  for the first route  handler and second route handler 
+
+
+
+// app.use(
+//     "/user",
+//     (req,res,next)=> {
+//     console.log("Handling the route handler!!");
+//     res.send("Response!!!");
+//     next();
+//     },
+
+//     (req,res) => {
+//     //route handler 2
+//     console.log("Handling the route user 2!!");
+//     res.send("2ndResponse!!");
+//     }
+//     );
+
+
+// app.listen(7777,() => {
+//     console.log("Server is successfully listening on port 7777...");
+// });
+
+// here in the below ,code is again sending the response again ,it will throw the error 
+
+
+// app.use(
+//     "/user",
+//     (req,res,next)=> {
+//     console.log("Handling the route handler!!");
+//     next();
+//      res.send("Response!!");
+//     },
+
+//     (req,res) => {
+//     //route handler 2
+//     console.log("Handling the route user 2!!");
+//     res.send("2ndResponse!!");
+//     }
+//     );
+
+
+// app.listen(7777,() => {
+//     console.log("Server is successfully listening on port 7777...");
+// });
+
+
+// app.use(
+//     "/user",
+//     (req,res,next)=> {
+//     console.log("Handling the route handler!!");
+//     //  res.send("Response!!");
+//      next();
+//     },
+//     (req,res) => {
+//     //route handler 2
+//     console.log("Handling the route user 2!!");
+//     res.send("2ndResponse!!");
+//     },
+//     (req,res) => {
+//     console.log("Handling the route user 3!!");
+//     res.send("3Response!!");
+//     },
+//     (req,res) => {
+//     console.log("Handling the route user    4!");
+//     res.send(" 4Response!!");
+//     },
+//     );
+
+// app.listen(7777,() => {
+//     console.log("Server is successfully listening on port 7777...");
+// });
+
+
+// with the next it will think there will be router handler there 
+
+// if we put next over there 
+
+
+// app.use(
+//     "/user",
+//     (req,res,next)=> {
+//     console.log("Handling the route handler!!");
+//     next();
+//     },
+
+//     (req,res,next)=>{
+//     //route handler 2
+//     console.log("Handling the route user 2!!");
+//     // res.send("2ndResponse!!");
+//     next();
+//     },
+
+//     (req,res,next)=>{
+//     console.log("Handling the route user 3!!");
+//     // res.send("3Response!!");
+//     next();
+//     },
+
+//     (req,res,next)=>{
+//     console.log("Handling the route user 4!");
+//     // res.send(" 4Response!!");
+//     next();
+//     },
+//     (req,res,next)=>{
+//     console.log("Handling the route user 5! ");
+//     res.send("5Response!!");
+//     },
+//     );
+
+// app.listen(7777,() => {
+//     console.log("Server is successfully listening on port 7777...");
+// });
+
+// you can sent the array of functions as well 
+
+// app.use(
+//     "/user",[
+//     (req,res,next)=> {
+//     console.log("Handling the route handler!!");
+//     next();
+//     },
+
+//     (req,res,next)=>{
+//     //route handler 2
+//     console.log("Handling the route user 2!!");
+//     // res.send("2ndResponse!!");
+//     next();
+//     },
+
+//     (req,res,next)=>{
+//     console.log("Handling the route user 3!!");
+//     // res.send("3Response!!");
+//     next();
+//     },
+
+//     (req,res,next)=>{
+//     console.log("Handling the route user 4!");
+//     // res.send(" 4Response!!");
+//     next();
+//     },
+//     (req,res,next)=>{
+//     console.log("Handling the route user 5! ");
+//     res.send("5Response!!");
+//     },
+// ]
+//     );
+
+// app.listen(7777,() => {
+//     console.log("Server is successfully listening on port 7777...");
+// });
+
+// you can put array in between as well
+//here we have implemented array of two handler 
+
+
+app.use(
+    "/user",[
+    (req,res,next)=> {
+    console.log("Handling the route handler!!");
+    next();
+    },
+
+    (req,res,next)=>{
+    //route handler 2
+    console.log("Handling the route user 2!!");
+    // res.send("2ndResponse!!");
+    next();
+    },
+],
+    (req,res,next)=>{
+    console.log("Handling the route user 3!!");
+    // res.send("3Response!!");
+    next();
+    },
+
+    (req,res,next)=>{
+    console.log("Handling the route user 4!");
+    // res.send(" 4Response!!");
+    next();
+    },
+    (req,res,next)=>{
+    console.log("Handling the route user 5! ");
+    res.send("5Response!!");
+    },
+    );
+
+app.listen(7777,() => {
+    console.log("Server is successfully listening on port 7777...");
+});
+
+// app.use("/route",RH,RH2,RH3,RH4,RH5)
+
+// app.use("/route",[rh,rh2,rh3,rh4,rh5])
+//app.use("/route",[rh,rh2],rh3,rh4,rh5)
+
+
+--------------------------------------------------------
+
+middleware and routehandler 
+
+
+const express=require("express");
+const app=express();
+
+// route handler is the function which send the response
+// it is nothing the middleware 
+//it will go to through the chain in middleware through requests 
+
+
+// Get /users ==>user will fall into this 
+//those who send the response back it will be the route handler 
+//in the middle of it there will be middleware 
+
+
+
+app.use("/",(req,res,next)=>{
+    // res.send("Handling /route");
+    next();
+});
+
+app.get("/user",(req,res,next)=>{
+    console.log("Handling the route user 2!!");
+    // res.send("2nd Route Handler");
+    next();
+});
+
+app.get("/user",(req,res,next)=>{
+    console.log("Handling the route user!!");
+    next();
+});
+
+app.listen(7777,()=>{
+    console.log("Server is successfully listening on port 7777....");
+});
+
+
+
+
+
+
+-------------------------------------------------------------------
+
+
+const express=require("express");
+const app=express();
+// admin can have multiple api call 
+// there is need to validae the admin ,other wise any can make call to the api
+// dont you think the logic of checking is done again and again 
+
+//401 means not authorized 
+// you can rewrite the code by making use of middleware 
+app.get("/admin/getAllData",(req,res) =>{
+
+    //Logic of   Checking if the request is authorized 
+     const token= " xyzzzzjgjgjgggjhjgjgjgjg";
+     const isAdminAuthorized =token ==="xyz"
+     if(isAdminAuthorized){
+     // logic of fetching all data 
+     res.send("All Data Sent");
+     }
+     else {
+        res.status(401).send("Unauthorised request ");
+     }
+});
+
+app.get("/admin/deleteUser",(req,res) =>{
+     res.send("Delete a user");
+})
+
+app.listen(7777,()=>{
+    console.log("Server is successfully listening on port 7777....");
+});
+
+-----------------------------------
+Middleware is written with the help of use 
+for all the requests of /admin 
+
+
+const express=require("express");
+const app=express();
+
+const {adminAuth,userAuth}= require("./middlewares/auth.js");
+// Handle Auth Middleware for all request get ,post 
+// if you want  get request then used get only 
+
+// you can use  app.all("/admin")
+//Always make app.use instead of app.all 
+
+app.use("/admin",adminAuth);
+// app.use("/user",userAuth);
+
+//if the middleware sent the response then it is okay otherwise it is not okay 
+
+app.post("/user/login",()=>{
+    res.send("User logged in successfully");
+});
+
+app.get("/user/data",userAuth,(req,res)=>{
+    res.send("User Data Sent");
+});
+
+app.get("/user",userAuth,(req,res) => {
+    res.send("User Data Sent");
+})
+
+app.get("/admin/getAllData",(req,res) =>{
+     res.send("All Data Sent");
+});
+
+app.get("/admin/deleteUser",(req,res) =>{
+     res.send("Delete a user");
+})
+
+app.listen(7777,()=>{
+    console.log("Server is successfully listening on port 7777....");
+});
+
+
+
