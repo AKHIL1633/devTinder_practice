@@ -93,15 +93,39 @@ app.patch("/user",async(req,res)=>{
     //You can tweak this option accordingly
 
     const user =await User.findByIdAndUpdate({_id:userId},data,
-      {returnDocument: 'before'});
+      {returnDocument: 'after',
+       runValidators: true,   
+      });
     console.log(user);
     res.send("User updated successfullly");
   } catch(err){
-    res.status(400).send("Something went wrong");
+    res.status(400).send("Something went wrong: " + err.message)
   }
 });
 
+// Update the user with the email id 
 
+app.patch("/user1", async (req, res) => {
+  const { emailId, ...data } = req.body;
+
+  try {
+    const user = await User.findOneAndUpdate(
+      { emailId },
+      data,
+      { returnDocument: "after" }
+    );
+
+    if (!user) {
+      res.status(404).send("User not found");
+    } else {
+      res.send("User updated successfully");
+    }
+
+  } catch(err) {
+    console.log(err.message);  // check terminal for exact error
+    res.status(400).send("Something went wrong: " + err.message);
+  }
+});
 
 
 connectDB()
