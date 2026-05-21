@@ -1,37 +1,36 @@
 const express=require("express");
-
+const connectDB =require("./config/database")
 const app=express();
+const User=require("./models/user");
 
-// route should be handled one by one 
+// api creation then we 
+app.post("/signup",async(req,res)=>{
+  // creating a new instance of the User model 
+     const user=new User ({
+      firstName:"Sachin",
+      lastName: "Tendulkar",
+      emailId: "sachin@Tendulkar.com",
+      password: "Sachin@123"
+     });
 
-app.get("/getUserData",(req,res)=>{
-    try{
-    // Logic of Db call and get user data
-    throw new Error("abcdef")
-    res.send("User Data Sent");
-    }
-    catch(err){
-     res.status(500).send("Some Error contact support team");
-    }
-});
-
-// error will be the first parameter 
-
-
-app.use("/",(err,req,res,next)=>{
-   if(err){
-
-    // Log your error 
-
-    res.status(500).send("something went wrong");
-   }
+     try {
+     await user.save();
+     res.send("User Added successfully");
+     }catch (err){
+      res.status(400).send("Error  saving the user:" + err.message);
+     }
 });
 
 
-
-
-app.listen(7777,()=>{
+connectDB()
+.then(()=>{
+    console.log("Database connection established....");
+    app.listen(7777,()=>{
     console.log("Server is successfully listening on port 7777....");
+});
+})
+.catch((err)=>{
+  console.error("Database cannot be connected:", err.message)
 });
 
 
