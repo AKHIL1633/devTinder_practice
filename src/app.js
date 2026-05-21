@@ -30,7 +30,8 @@ app.post("/signup",async(req,res)=>{
 // Get user by email 
 //findbyid()--- if you have the id 
 
-//find -
+//findOne with the email of the user 
+
 app.get("/user",async(req,res)=>{
   const userEmail =req.body.emailId;
 
@@ -56,6 +57,51 @@ app.get("/feed",async(req,res)=> {
     res.status(400).send("Something went wrong");
   }   
 });
+
+//to delete the user --->findByIdAndDelete
+
+app.delete("/user",async(req,res)=>{
+  const userId=req.body.userId;
+  try{
+    // const user=await User.findByIdAndDelete({_id: userId});
+
+    const user =await User.findByIdAndDelete(userId);
+    res.send("User Deleted successfully");
+  }
+  catch(err){
+    res.status(400).send("Something went wrong");
+  }
+});
+
+
+// Update data of the user
+//findByIdAndUpdate
+
+
+app.patch("/user",async(req,res)=>{
+  const userId=req.body.userId;
+  //data means what are the things we need to update  
+
+  const data=req.body;
+  // i am passing the whole data 
+  //if you are passing skills suppose which is not present ,it will not be stored as it is not present in the Schema 
+
+  console.log(data);
+  try {
+    // it will return the document before the update was applied 
+    // options you can used Before and After 
+    //You can tweak this option accordingly
+
+    const user =await User.findByIdAndUpdate({_id:userId},data,
+      {returnDocument: 'before'});
+    console.log(user);
+    res.send("User updated successfullly");
+  } catch(err){
+    res.status(400).send("Something went wrong");
+  }
+});
+
+
 
 
 connectDB()

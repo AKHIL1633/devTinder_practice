@@ -944,31 +944,31 @@
 /// make used of find ()
 // to get all uses at a time 
 
-const express=require("express");
+// const express=require("express");
 
-const connectDB =require("./config/database")
+// const connectDB =require("./config/database")
 
-const app=express();
+// const app=express();
 
-const User=require("./models/user");
+// const User=require("./models/user");
 
-app.use(express.json());
+// app.use(express.json());
 
 
 
-// api creation then we 
-app.post("/signup",async(req,res)=>{
+// // api creation then we 
+// app.post("/signup",async(req,res)=>{
   
-  // creating a new instance of the User model 
-     const user=new User (req.body);
+//   // creating a new instance of the User model 
+//      const user=new User (req.body);
 
-     try {
-     await user.save();
-     res.send("User Added successfully");
-     }catch (err){
-      res.status(400).send("Error  saving the user:" + err.message);
-     }
-});
+//      try {
+//      await user.save();
+//      res.send("User Added successfully");
+//      }catch (err){
+//       res.status(400).send("Error  saving the user:" + err.message);
+//      }
+// });
 
 
 //go to the documentation api>Model>Model.find()
@@ -1015,9 +1015,71 @@ app.post("/signup",async(req,res)=>{
 // });
 
 
+// Added the logic of delete 
+
+// app.delete("/user",async(req,res)=>{
+//   const userId=req.body.userId;
+//   try{
+//     // const user=await User.findByIdAndDelete({_id: userId});
+
+//     const user =await User.findByIdAndDelete(userId);
+//     res.send("User Deleted successfully");
+//   }
+//   catch(err){
+//     res.status(400).send("Something went wrong");
+//   }
+// });
+
+// Difference between patch and put 
+
+// Update data of the user
+//findByIdAndUpdate
+
+// app.patch("/user",async(req,res)=>{
+//   const userId=req.body.userId;
+//   const data=req.body;
+//   // i am passing the whole data 
+//   //if you are passing skills suppose which is not present ,it will not be stored as it is not present in the Schema 
+  
+//   console.log(data);
+//   try {
+//     await User.findByIdAndUpdate({_id:userId},data);
+//     res.send("User updated successfullly");
+//   } catch(err){
+//     res.status(400).send("Something went wrong");
+//   }
+// });
+
+/// There is need to add some stric check for the update 
+// Api - Update a user 
+// Explore the mongoose documentation https://mongoosejs.com/docs/8.x/docs/api/model.html#Model.findByIdAndUpdate()
+//What are options in a Model.findOneAndUpdate method,explore  more about it 
+
+// Api -Update the user with the email id  
 
 
+// app.patch("/user",async(req,res)=>{
+//   const userId=req.body.userId;
+//   //data means what are the things we need to update  
 
+//   const data=req.body;
+//   // i am passing the whole data 
+//   //if you are passing skills suppose which is not present ,it will not be stored as it is not present in the Schema 
+
+//   console.log(data);
+//   try {
+//     // it will return the document before the update was applied 
+//     // options you can used Before and After 
+//     //You can tweak this option accordingly
+
+//     const user =await User.findByIdAndUpdate({_id:userId},data,
+//       {returnDocument: 'before'});
+//     console.log(user);
+//     res.send("User updated successfullly");
+//   } catch(err){
+//     res.status(400).send("Something went wrong");
+//   }
+// });
 
 
 
