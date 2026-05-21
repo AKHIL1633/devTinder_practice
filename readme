@@ -1238,10 +1238,79 @@
 //Improve the Db Schema - Put all  appropriate validation on each field in Schema 
 //Add timestamps to the userSchema
 
+// now look at the api validation
+// when user is signining up ,i dont need all the information 
+// i want to take 4 field  firstname,lastname,email and password 
+
+// email id is updated but we dont want the email id  to be updated ,once it is registered 
+
+//passing random data still  the api is accepting 
+// when user is updating its profile ,only certain filed can be updated 
+
+// we have to write some basic logic first 
+
+// instead of fetching userid from the  body ,we can get from the url as well 
+
+// we can use cookies and header to fetch the user id 
 
 
 
+// app.patch("/user",async(req,res)=>{
+//   const userId=req.body.userId;
+//   //data means what are the things we need to update  
+
+//   const data=req.body;
+//   // i am passing the whole data 
+//   //if you are passing skills suppose which is not present ,it will not be stored as it is not present in the Schema 
+//   console.log(data);
+//   try {
+
+//     const Allowed_UPDATES = [
+//     "userId",
+//     "photoUrl",
+//     "about",
+//     "gender",
+//     "age",
+//     "skills",
+//     ];
+//   const isUpdateAllowed=Object.keys(data).every((k)=>
+//   Allowed_UPDATES.includes(k)
+//   );
+//   if(!isUpdateAllowed){
+//     throw new Error("Update not allowed ")
+//   }
+//   console.log(data);
+//   // looping through each key on it 
+//     // it will return the document before the update was applied 
+//     // options you can used Before and After 
+//     //You can tweak this option accordingly
+
+//     const user =await User.findByIdAndUpdate({_id:userId},data,
+//       {returnDocument: 'after',
+//        runValidators: true,   
+//       });
+//     console.log(user);
+//     res.send("User updated successfullly");
+//   } catch(err){
+//     res.status(400).send("Something went wrong: " + err.message)
+//   }
+// });
 
 
 
+// http://localhost:7777/user/6a0f16af634b1a66d9594a98
+
+// Always validate and santize it 
+// Suppose if the user try to many skills at a time around 100 
+// we must stop it 
+// you must allowed the validation to every thing ,hackers can send the malicious data ,so we have to think every possible things 
+
+
+// Always have backend validation for lot of things 
+
+/// Add Api level validation on Patch request & Signup post api 
+// the more code you right ,the more you will 
+//each and every field should be santise ,this is known as data sanitization 
+
+//Data Sanitizing - Add Api  level validation for each field 
 

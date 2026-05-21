@@ -78,16 +78,35 @@ app.delete("/user",async(req,res)=>{
 //findByIdAndUpdate
 
 
-app.patch("/user",async(req,res)=>{
-  const userId=req.body.userId;
+app.patch("/user/:userId",async(req,res)=>{
+  // we put the ? if the user id not present 
+  const userId=req.params?.userId;
   //data means what are the things we need to update  
 
   const data=req.body;
   // i am passing the whole data 
   //if you are passing skills suppose which is not present ,it will not be stored as it is not present in the Schema 
-
   console.log(data);
   try {
+
+    const Allowed_UPDATES = [
+    "photoUrl",
+    "about",
+    "gender",
+    "age",
+    "skills",
+    ];
+  const isUpdateAllowed=Object.keys(data).every((k)=>
+  Allowed_UPDATES.includes(k)
+  );
+  if(!isUpdateAllowed){
+    throw new Error("Update not allowed ")
+  }
+  if(data?.skills.length>10){
+    throw  new Error ("Skills cannot be more than 10");
+  }
+  console.log(data);
+  // looping through each key on it 
     // it will return the document before the update was applied 
     // options you can used Before and After 
     //You can tweak this option accordingly
