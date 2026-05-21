@@ -803,3 +803,148 @@
 
 
 
+// using postman with body in raw we can send the data as well
+
+// if you send just the request it will go to the infinite loop
+
+// const express=require("express");
+// const connectDB =require("./config/database")
+// const app=express();
+// const User=require("./models/user");
+
+// // api creation then we 
+// app.post("/signup",async(req,res)=>{
+//   console.log(req);
+  // creating a new instance of the User model 
+    //  const user=new User ({
+    //   firstName:"Sachin",
+    //   lastName: "Tendulkar",
+    //   emailId: "sachin@Tendulkar.com",
+    //   password: "Sachin@123"
+    //  });
+
+    //  try {
+    //  await user.save();
+    //  res.send("User Added successfully");
+    //  }catch (err){
+    //   res.status(400).send("Error  saving the user:" + err.message);
+    //  }
+// });
+
+
+// connectDB()
+// .then(()=>{
+//     console.log("Database connection established....");
+//     app.listen(7777,()=>{
+//     console.log("Server is successfully listening on port 7777....");
+// });
+// })
+// .catch((err)=>{
+//   console.error("Database cannot be connected:", err.message)
+// });
+
+
+
+//  console.log(req.body);
+// if you put this it will show undefined as value 
+
+// to read the data,you will need the middle ,that can check the incoming requests  
+//read the json and convert it into javascript objects 
+//Attach it to the javascript Objects 
+//there is middleware ,which is given by express 
+//express.json()
+//to use the middleware we have to use app.use()
+//my middleware will be accessible to all the routes 
+//it will run on every request if it put / on it 
+
+
+// const express=require("express");
+
+// const connectDB =require("./config/database")
+
+// const app=express();
+
+// const User=require("./models/user");
+
+// app.use(express.json());
+
+// // api creation then we 
+// app.post("/signup",async(req,res)=>{
+//   console.log(req.body);
+//   // creating a new instance of the User model 
+//     //  const user=new User ({
+//     //   firstName:"Sachin",
+//     //   lastName: "Tendulkar",
+//     //   emailId: "sachin@Tendulkar.com",
+//     //   password: "Sachin@123"
+//     //  });
+
+//     //  try {
+//     //  await user.save();
+//     //  res.send("User Added successfully");
+//     //  }catch (err){
+//     //   res.status(400).send("Error  saving the user:" + err.message);
+//     //  }
+// });
+
+
+// connectDB()
+// .then(()=>{
+//     console.log("Database connection established....");
+//     app.listen(7777,()=>{
+//     console.log("Server is successfully listening on port 7777....");
+// });
+// })
+// .catch((err)=>{
+//   console.error("Database cannot be connected:", err.message)
+// });
+
+//--JS object vs JSON (difference)
+// Add the express.json middleware to your app
+//Make your signup Api Dynamic to receive data from the end user 
+
+// const express=require("express");
+
+// const connectDB =require("./config/database")
+
+// const app=express();
+
+// const User=require("./models/user");
+
+// app.use(express.json());
+
+
+
+// // api creation then we 
+// app.post("/signup",async(req,res)=>{
+  
+//   // creating a new instance of the User model 
+//      const user=new User (req.body);
+
+//      try {
+//      await user.save();
+//      res.send("User Added successfully");
+//      }catch (err){
+//       res.status(400).send("Error  saving the user:" + err.message);
+//      }
+// });
+
+
+// connectDB()
+// .then(()=>{
+//     console.log("Database connection established....");
+//     app.listen(7777,()=>{
+//     console.log("Server is successfully listening on port 7777....");
+// });
+// })
+// .catch((err)=>{
+//   console.error("Database cannot be connected:", err.message)
+// });
+
+
+
+
+
+
+
+
