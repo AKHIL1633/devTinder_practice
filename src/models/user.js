@@ -1,4 +1,6 @@
 const mongoose=require("mongoose");
+const validator=require("validator");
+
 const userSchema =new mongoose.Schema ({
     firstName: {
         type: String,
@@ -15,12 +17,22 @@ const userSchema =new mongoose.Schema ({
      lowercase:true, // whatever the user is sending it is changed to the lower case 
      required:true,
      unique:true,
-     trim:true
+     trim:true,
+     validate(value){
+       if(!validator.isEmail(value)){
+        throw new Error("Invalid email address")
+       }
+     }
     },
 
     password: {
         type: String,
-        required:true
+        required:true,
+        validate(value){
+            if(!validator.isStrongPassword(value)){
+                throw new Error("Enter a Strong Password" +value);
+            }
+        }
     },
     age: {
         type:Number,
@@ -45,6 +57,10 @@ const userSchema =new mongoose.Schema ({
     photoUrl:{
         type:String,
         default:"https://img.magnific.com/free-vector/isolated-young-handsome-man-different-poses-white-background-illustration_632498-859.jpg?semt=ais_hybrid&w=740&q=80",
+        validate(value){
+        if(!validator.isURL(value)){
+        throw new Error("Invalid Photo Url: ",+ value);
+       }
     },
     about:{
         type: String,
@@ -54,6 +70,7 @@ const userSchema =new mongoose.Schema ({
     {
         type:[String],
     }
+}
 },{
     timestamps: true,
 });

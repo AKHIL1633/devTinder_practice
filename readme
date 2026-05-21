@@ -1314,3 +1314,26 @@
 
 //Data Sanitizing - Add Api  level validation for each field 
 
+//if i tried to create a user in that email id is just string 
+// example myusername
+// then user added successfully
+//validating email id is not an easy job 
+
+// There is a famous npm library we called it as 
+// npm validator
+// Millions of people use it -> it is insane
+
+// it validate lot of things 
+
+//npm install validator 
+
+// how to use it 
+// validator.isEmail 
+
+// you can various check 
+//isJwt --> you can check lot of things 
+
+//isStrongPassword 
+// ---- Install Validator
+// ---- Explore  validator library function and use Validator functions for password ,email
+//to keep our data safe 
