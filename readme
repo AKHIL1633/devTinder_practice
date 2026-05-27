@@ -1338,6 +1338,106 @@
 // ---- Explore  validator library function and use Validator functions for password ,email
 //to keep our data safe 
 
+/// Lecture of Encrypting password 
+
+/// we are storing the password in the plain text 
+// in the database 
+//it should be in the hash format 
+// created utils.file 
+// in tha created validator.js
+
+// const validator=require('validator')
+
+// const validateSignUpData =(req){
+//    const {firstName,lastName,emailId,password}=req.body;
+//    if(!firstName || !lastName){
+//     throw new Error("Name is not valid");
+//    }
+// //    else if (firstName.length<4 || firstName.length>50){
+// //     throw new Error("FirstName should be 4-50 characters");
+// //    }
+//   else if(!validator.isEmail(emailId))
+//    {
+//     throw new Error("Email is not valid ");
+//    }
+//    else if(!validator.isStrongPassword(password)){
+//     throw new Error("Please enter a strong password!");
+//     }
+// };
+
+
+// to encrypt the pass word we will use bcrypt package 
+// npm i bcrypt
+// api creation then we 
+// app.post("/signup",async(req,res)=>{
+//   // Validation of data is required in sign up
+//     validateSignUpData(req);
+
+//     const {firstName,lastName,emailId,password}=req.body;
+//   // Encrypt the password
+//   // it will create the hash salt should be applied 
+//   // the more salt will be the more  encrypted password would be 
+
+//   const passwordHash=await bcrypt.hash(password,10);
+//   console.log(passwordHash);
+//   //once you encrypt it you cant decrypt it 
+
+
+//   // creating a new instance of the User model 
+//   // only these fields are allowed
+//      const user=new User({
+//       firstName,
+//       lastName,
+//       emailId,
+//       password: passwordHash,
+//      });
+
+//      try {
+//      await user.save();
+//      res.send("User Added successfully");
+//      }catch (err){
+//       res.status(400).send("Error:" + err.message);
+//      }
+// });
+
+// Validate data in Signup Api
+//Install bcrypt package
+//Create PasswordHash using bcrypt.hash and save the user is 
+// encrypted password
+
+// create the login api similarly 
+// app.post("/login",async(req,res)=>{
+//   try {
+//     const {emailId,password}=req.body;
+//      if (!validator.isEmail(emailId)) {
+//       throw new Error("Invalid email address");
+//     }
+//     // it will return the one email id 
+//     const user = await User.findOne({ emailId });
+//     if (!user) {
+//       throw new Error("Invalid credentials");
+//     }
+//     // bcrypt.compare is there to check the password 
+    
+//     // const isPasswordValid=bcrypt.compare("Elon@123",
+//     //   "$2b$10$qic2i2xAN6DcRcJAEv39au/xd649scg05NegxJfl/WcnSczGo/9kS"
+//     // )
+//     const isPasswordValid=await bcrypt.compare(password,user.password);
+//     if(isPasswordValid){
+//       res.send("Login Successful!!!");
+//     }
+//     else {
+//       throw new Error("Password is not correct");
+//     }
+//   }catch(err){
+//     res.status(400).send("ERROR :" +err.message);
+//   }
+// });
+
+
+// Compaare passwords and throw error if email or password is invalid 
+
+
 
 
 /// WebSocket.io
