@@ -6,6 +6,10 @@ const app=express();
 
 const User=require("./models/user");
 
+const {validateSignUpData}=require("./utils/validation");
+
+const validator=require("validator");
+const bcrypt =require("bcrypt");
 app.use(express.json());
 
 // to get the info of the Model.findByIdAndUpdate
@@ -16,23 +20,78 @@ app.use(express.json());
 // run validators =true
 //you can run custom validations
 
+// Akshay@123
+//you need a salt 
+//dvdavadvsdvsdvsdvsd
 
+// never disclose the email id and password is not present
+// the attacker should not know these details 
+
+// try to make the app more secure using jwt token 
+//using cookie 
+
+
+
+app.post("/login",async(req,res)=>{
+  try {
+    const {emailId,password}=req.body;
+     if (!validator.isEmail(emailId)) {
+      throw new Error("Invalid email address");
+    }
+    // it will return the one email id 
+    const user = await User.findOne({ emailId });
+    if (!user) {
+      throw new Error("Invalid credentials");
+    }
+    // bcrypt.compare is there to check the password 
+    
+    // const isPasswordValid=bcrypt.compare("Elon@123",
+    //   "$2b$10$qic2i2xAN6DcRcJAEv39au/xd649scg05NegxJfl/WcnSczGo/9kS"
+    // )
+    const isPasswordValid=await bcrypt.compare(password,user.password);
+    if(isPasswordValid){
+      res.send("Login Successful!!!");
+    }
+    else {
+      throw new Error("Password is not correct");
+    }
+  }catch(err){
+    res.status(400).send("ERROR :" +err.message);
+  }
+});
 
 
 // api creation then we 
 app.post("/signup",async(req,res)=>{
-  
+  // Validation of data is required in sign up
+    validateSignUpData(req);
+
+    const {firstName,lastName,emailId,password}=req.body;
+  // Encrypt the password
+  // it will create the hash salt should be applied 
+  // the more salt will be the more  encrypted password would be 
+
+  const passwordHash=await bcrypt.hash(password,10);
+  console.log(passwordHash);
+  //once you encrypt it you cant decrypt it 
+
+
   // creating a new instance of the User model 
-     const user=new User (req.body);
+  // only these fields are allowed
+     const user=new User({
+      firstName,
+      lastName,
+      emailId,
+      password: passwordHash,
+     });
 
      try {
      await user.save();
      res.send("User Added successfully");
      }catch (err){
-      res.status(400).send("Error  saving the user:" + err.message);
+      res.status(400).send("Error:" + err.message);
      }
 });
-
 
 //go to the documentation api>Model>Model.find()
 
@@ -92,6 +151,7 @@ app.patch("/user/:userId",async(req,res)=>{
   // we put the ? if the user id not present 
   const userId=req.params?.userId;
   //data means what are the things we need to update  
+  // I  will validate my request body
 
   const data=req.body;
   // i am passing the whole data 
@@ -106,6 +166,9 @@ app.patch("/user/:userId",async(req,res)=>{
     "age",
     "skills",
     ];
+  // i will check if the respective key is present or not 
+  // you cann't update the random things 
+   
   const isUpdateAllowed=Object.keys(data).every((k)=>
   Allowed_UPDATES.includes(k)
   );
@@ -133,7 +196,7 @@ app.patch("/user/:userId",async(req,res)=>{
 });
 
 
-
+ 
 // Update the user with the email id 
 
 app.patch("/user1", async (req, res) => {
