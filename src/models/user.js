@@ -1,6 +1,67 @@
 const mongoose=require("mongoose");
 const validator=require("validator");
 
+/// mongoose documention schema types 
+/// you can read about the Schema Types 
+// mongoose Schema Type Options 
+
+// required field -- boolean value True and False 
+// firstname , emailid ,password
+
+// unique field 
+// There must be one user with one emil id 
+// other  value should not be there 
+
+//Default Value 
+// photoUrl --- dummy photo url link from google you have put
+//about  = "This is a default about of the user "
+
+//Whenever a new user ,registered withouth the about section
+
+/// usecase of email id 
+// Someone has added the random email id 
+//email id will be stored automatically 
+// i want my email -id in lowe case 
+// Sometimes user enter the email id with space in fromt  and the end 
+// i mean the whitespaces ,i dont want the whitespace of it 
+// Make use of Trim 
+
+
+// Minlength for the firstName 
+// For the age - it is number 
+// you can put min and max of it 
+
+// custom validate function
+// validate (value)
+// if value is male ,female ,others includes 
+ 
+// timestamps -- true
+// mongodb will add created At and updated At
+
+// you can add in the schema as well
+// createdAt
+// type : Date
+
+// you can test it using the sign up 
+// regesitering the user with the first name ,lastname 
+// email id and password 
+
+// you can add the skills in the form of Array 
+//It is good to put the timestamp 
+
+// Every field can have validation
+
+// Explore schematype options from the documentation
+// add required ,unique ,lowercase,min,minlength,trim
+//Add default
+//Create  a custom validate function for gender
+//Improve The Db schema -Put all appropriate validations on each filed in SCHEMA
+//Add timestamps to the userschema
+
+
+
+
+
 const userSchema =new mongoose.Schema ({
     firstName: {
         type: String,

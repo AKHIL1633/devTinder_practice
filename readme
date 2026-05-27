@@ -1337,3 +1337,31 @@
 // ---- Install Validator
 // ---- Explore  validator library function and use Validator functions for password ,email
 //to keep our data safe 
+
+
+
+/// WebSocket.io
+///socket.io
+///this document is good and nice 
+///// docs  
+//// Server Api
+//// Client Api
+
+//// Socket.io is a library 
+///low latency ,bidirectional and event based communication
+
+
+//// Generally Api is uni-directional
+/// Server cant send any request
+/// Web socket are bidirectional
+// every thing we do is event based 
+//Event Listener 
+
+/// two people are connected ,they should messages to each other 
+
+/// to create a chat window kind of thing 
+
+// chat.jsx
+
+// if want to chat with someone ,we need a button kind of thing 
+

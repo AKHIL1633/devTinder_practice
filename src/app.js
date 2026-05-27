@@ -8,6 +8,15 @@ const User=require("./models/user");
 
 app.use(express.json());
 
+// to get the info of the Model.findByIdAndUpdate
+// go to the Api then model
+
+//in the option you will see the run validators 
+// explictly allowed 
+// run validators =true
+//you can run custom validations
+
+
 
 
 // api creation then we 
@@ -76,6 +85,7 @@ app.delete("/user",async(req,res)=>{
 
 // Update data of the user
 //findByIdAndUpdate
+//post and patch api need strict checks 
 
 
 app.patch("/user/:userId",async(req,res)=>{
@@ -121,6 +131,8 @@ app.patch("/user/:userId",async(req,res)=>{
     res.status(400).send("Something went wrong: " + err.message)
   }
 });
+
+
 
 // Update the user with the email id 
 
