@@ -1825,6 +1825,28 @@
 
 //Episode -11 Diving into the Apis and express Router 
 
+// you create express router ,you route it in your proper way 
+
+//Go to the Express.router
+// to manage our api efficiently 
+//also to group  the api 
+//router will handles this api 
+
+//seperate router will have seperate file 
+//authRouter 
+//profileRouter
+//connectionRequestRouter
+
+
+//it is a industry practice 
+
+// Explore tinder APIS
+// Explore the data inside it 
+
+//Create a list of all Api you  can think of in Dev Tinder
+//Group multiple  routes under respective routers 
+
+
 
 
 
@@ -1855,4 +1877,11 @@
 // chat.jsx
 
 // if want to chat with someone ,we need a button kind of thing 
+
+//your app.js should be clean
+// it means we are refactoring the code 
+
+// The main job of express.js is go when by one 
+// whenever you got the route ,it will try to  go and check the all the middleware
+// all the requesthandlers ,from wherever it got the response 
 
