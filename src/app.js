@@ -9,8 +9,21 @@ const User=require("./models/user");
 const {validateSignUpData}=require("./utils/validation");
 
 const validator=require("validator");
+
 const bcrypt =require("bcrypt");
+
+const cookieParser=require("cookie-parser");
+
+const jwt=require("jsonwebtoken");
+
+const {userAuth}=require("./middlewares/auth");
+
+const user = require("./models/user");
+
 app.use(express.json());
+
+app.use(cookieParser());
+
 
 // to get the info of the Model.findByIdAndUpdate
 // go to the Api then model
@@ -30,6 +43,9 @@ app.use(express.json());
 // try to make the app more secure using jwt token 
 //using cookie 
 
+//How to expire the Jwt token 
+
+// you can even sent the expiry time
 
 
 app.post("/login",async(req,res)=>{
@@ -50,7 +66,55 @@ app.post("/login",async(req,res)=>{
     // )
     const isPasswordValid=await bcrypt.compare(password,user.password);
     if(isPasswordValid){
+      // express give a good way to attch the cookie 
+      //res.cookies(name,value)
+      // There is a method for it 
+      // jwt.io website 
+      //it has some secret information is stored inside it 
+      //jwt contain special information inside it 
+      //jwt token has threee things - header ,payload ,signature 
+      // payloaf will contain the secret information hide inside the code 
+
+
+      // Create a JWT token 
+      // jsonwebtoken is the main one ,good package developed bi oauth 
+      //it will give you method to sign up as well
+      //userid of akshay will be hide out in the token 
+      //Cookie Hijacking -- i can access your private information
+      //Secret key 
+      //1 h is one hour 
+      //expire in 0d ,create the token and you will expire immediately
+      
+      // in namaste dev ,they have expired the token in 1 day 
+
+      // in normal website ,the expirey is generally 1 week 
+
+      //you can expire the cookies as well 
+
+      // search as res.cookies() in expressjs.com
+
+
+    
+
+      const token=await jwt.sign({_id:user._id},"DEV@Tinder$798",{
+        expiresIn: "7d",
+      });
+
+      console.log(token);
+
+      // Add the token to cookie and send back to the user 
+      // in the postman you will get the token 
+      // to make only httpOnly only call used true
+      // httpOnly: true 
+      // but in production always used https 
+      //expires the token in 8 hr 
+
+      res.cookie("token",token,{
+        expires: new Date(Date.now() + 8 *3600000),
+      });
       res.send("Login Successful!!!");
+
+ 
     }
     else {
       throw new Error("Password is not correct");
@@ -59,6 +123,58 @@ app.post("/login",async(req,res)=>{
     res.status(400).send("ERROR :" +err.message);
   }
 });
+
+// whenever the profile api is called i need to validate the cookie 
+
+app.get("/profile",userAuth,async(req,res)=> {
+  //First it will go to the userAuth
+  //you can change the middleware and request handler 
+  //according to the express js
+  //here in the request user will already be there due to the middleware 
+ // req.cookies search this in the documentation
+try{
+  const user=req.user;
+  res.send(user);
+// const cookies=req.cookies;
+
+// const{token}=cookies;
+// // Validate my token
+// if(!token){
+//   throw new Error("Invalid Token");
+// }
+
+// const decodeMessage=await jwt.verify(token,"DEV@Tinder$798");
+// // console.log(decodeMessage);
+// const{_id}=decodeMessage;
+// // console.log("Logged In user is: " +  _id);
+
+
+// const user=await User.findById(_id);
+// if(!user){
+//   throw new Error("User does not exit");
+// }
+// res.send(user);
+
+//we have atached the user in the request itself
+
+
+
+// console.log(cookies); // undefined
+
+
+}
+catch(err) {
+  res.status(400).send("ERROR : " + err.message);
+}
+
+// post adding the middleware it will work clearly
+//once you login then you hitthe profile,you can see the response clearly
+// to read the cookie we would need a middleware cookie parser 
+// npm install cookie-parser 
+
+})
+
+
 
 
 // api creation then we 
@@ -93,6 +209,24 @@ app.post("/signup",async(req,res)=>{
      }
 });
 
+// i want to use this api when user is logged in 
+//add userAuth to make this api more secure 
+//this api will be called when my api is valid 
+//This is how you can authenticate the request 
+// i will  always use this middleware whenever user login onces 
+
+
+
+
+app.post("/sendConnectionRequest",userAuth,async(req,res)=>{
+  const user =req.user;
+  // Sending a connection Request 
+  console.log("Sending a connection request ");
+  
+  res.send(user.firstName + "sent the connection request");
+})
+
+
 //go to the documentation api>Model>Model.find()
 
 // Get user by email 
@@ -100,46 +234,46 @@ app.post("/signup",async(req,res)=>{
 
 //findOne with the email of the user 
 
-app.get("/user",async(req,res)=>{
-  const userEmail =req.body.emailId;
+// app.get("/user",async(req,res)=>{
+//   const userEmail =req.body.emailId;
 
-   try{
-    console.log(userEmail);
-    const user=await User.findOne({emailId:userEmail});
-    if(!user){
-      res.status(404).send("User not found");
-    }else{
-      res.send(user);
-    }
-     }catch(err){
-    res.status(400).send("Something went wrong")
-  }
-  });
+//    try{
+//     console.log(userEmail);
+//     const user=await User.findOne({emailId:userEmail});
+//     if(!user){
+//       res.status(404).send("User not found");
+//     }else{
+//       res.send(user);
+//     }
+//      }catch(err){
+//     res.status(400).send("Something went wrong")
+//   }
+//   });
 
-// Feed Api -Get/feed -get all the users from the database 
-app.get("/feed",async(req,res)=> {
-  try {
-       const users=await User.find({});
-       res.send(users);
-  }catch(err){
-    res.status(400).send("Something went wrong");
-  }   
-});
+// // Feed Api -Get/feed -get all the users from the database 
+// app.get("/feed",async(req,res)=> {
+//   try {
+//        const users=await User.find({});
+//        res.send(users);
+//   }catch(err){
+//     res.status(400).send("Something went wrong");
+//   }   
+// });
 
-//to delete the user --->findByIdAndDelete
+// //to delete the user --->findByIdAndDelete
 
-app.delete("/user",async(req,res)=>{
-  const userId=req.body.userId;
-  try{
-    // const user=await User.findByIdAndDelete({_id: userId});
+// app.delete("/user",async(req,res)=>{
+//   const userId=req.body.userId;
+//   try{
+//     // const user=await User.findByIdAndDelete({_id: userId});
 
-    const user =await User.findByIdAndDelete(userId);
-    res.send("User Deleted successfully");
-  }
-  catch(err){
-    res.status(400).send("Something went wrong");
-  }
-});
+//     const user =await User.findByIdAndDelete(userId);
+//     res.send("User Deleted successfully");
+//   }
+//   catch(err){
+//     res.status(400).send("Something went wrong");
+//   }
+// });
 
 
 // Update data of the user

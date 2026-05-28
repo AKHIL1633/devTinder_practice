@@ -1437,6 +1437,350 @@
 
 // Compaare passwords and throw error if email or password is invalid 
 
+/// Episode -10 Authentication ,Jwt & Cookies 
+
+
+// login api 
+// Sign up api 
+//done
+// we will create auth middleware
+
+// Role of Jwt token 
+// Signup then you will login 
+
+// Once the user login 
+//you want to access your profile
+//unlessthen you cant get/Profilr
+// post/profile
+// delete/profile
+
+//in chrome browser ,user hitting the api call 
+// we used the tcp protocol to communicate with the server
+// create the connection with tcp /ip 
+//user send the request and server responds then the connection is closed 
+
+// User basically  get/profile === age and gender 
+//data came in ,the connection is closed 
+
+//Patch.profile -- server needed to validate ,it is correct or not 
+//server will response and close the connection
+
+//user need to be validated ,if the request is genuine or not
+
+// user makes a login request ,the server  says email and password is correct
+//server will genereate the jwt token 
+// user when make an api call whether it is /profile 
+// /send  friend request ,// update profile
+
+// every time you send the request ,the token will go along with it
+//server will validate the token and sent the response back 
+
+// server will send the token ,how will the user store it 
+// they cam with a solution - cookies
+//server will put the token inside the cookies 
+
+
+// user send the login api with the email and password 
+//server will validate it (email and password)
+// it will check the credetials ,then it will create the jwt token and 
+// wrap it the token  inside the cookie 
+// now the token is unique ,omly for the user 
+//Browser will store the cookie ,when you make another request 
+// cookie will also be send along ,then server will validate it 
+//Any request will be made ,cookie will be sent along 
+// When will the cookie will not work 
+
+// when you login once,it will be login forever 
+// Suppose the cookie expired ,you are making the request,it will failed the validation
+//it will ask tp login again 
+
+//install cookie-parser 
+// just send a dummu cookie to user 
+// create get/provide Api and check if you get the cookie back 
+
+//Install json webtoken
+// in login Api,after email and password validation ,create a Jwt Token and 
+//sned it back to user in cookie 
+// read the cookies inside your profile Api and find the logged in user 
+
+// there is need to create the auth middleware
+
+// app.get("/profile",async(req,res)=> {
+//  // req.cookies search this in the documentation
+// try{
+// const cookies=req.cookies;
+
+// const{token}=cookies;
+// // Validate my token
+// if(!token){
+//   throw new Error("Invalid Token");
+// }
+
+// const decodeMessage=await jwt.verify(token,"DEV@Tinder$798");
+// // console.log(decodeMessage);
+// const{_id}=decodeMessage;
+// // console.log("Logged In user is: " +  _id);
+
+
+// const user=await User.findById(_id);
+// if(!user){
+//   throw new Error("User does not exit");
+// }
+// res.send(user);
+
+// // console.log(cookies); // undefined
+// res.send("Reading cookies")}
+// catch(err) {
+//   res.status(400).send("ERROR : " + err.message);
+// }
+
+// // post adding the middleware it will work clearly
+// //once you login then you hitthe profile,you can see the response clearly
+// // to read the cookie we would need a middleware cookie parser 
+// // npm install cookie-parser 
+
+// })
+
+
+// Earlier middleware 
+//  const adminAuth=(req,res,next)=>{
+//     console.log("Admin auth is getting checked");
+//     const token= "xyz";
+//      const isAdminAuthorized =token ==="xyz";
+//      if(!isAdminAuthorized){
+//          res.status(401).send("Unauthorised request ");
+//      }
+//     else {
+//         next();
+//     }
+// };
+// const userAuth=(req,res,next)=>{
+//     console.log("User  auth is getting checked");
+//     const token= "xyz";
+//      const isAdminAuthorized =token ==="xyz";
+//      if(!isAdminAuthorized){
+//          res.status(401).send("Unauthorised request ");
+//      }
+//     else {
+//         next();
+//     }
+// };
+
+
+// module.exports={
+//     adminAuth,
+//     userAuth,
+// }
+
+
+// created the new middleware 
+
+
+
+//  const adminAuth=(req,res,next)=>{
+//     console.log("Admin auth is getting checked");
+//     const token= "xyz";
+//      const isAdminAuthorized =token ==="xyz";
+//      if(!isAdminAuthorized){
+//          res.status(401).send("Unauthorised request ");
+//      }
+//     else {
+//         next();
+//     }
+// };
+// const userAuth=(req,res,next)=>{
+//     console.log("User  auth is getting checked");
+//     const token= "xyz";
+//      const isAdminAuthorized =token ==="xyz";
+//      if(!isAdminAuthorized){
+//          res.status(401).send("Unauthorised request ");
+//      }
+//     else {
+//         next();
+//     }
+// };
+
+// const jwt=require('jsonwebtoken');
+// const User=require("../models/user");
+
+// //Job of the middleware is Read the token 
+
+// const userAuth =async(req,res,next)=>{
+//     // Read the token from the req cookies 
+//     try{
+//     const cookies =req.cookies ;
+//     const {token}=cookies;
+//     if(!token) {
+//         throw new Error("Token is not valid!!!!!!!!!");
+
+//     }
+
+//     const decodedObj=await jwt.verify(token,"DEVTINDER@798");
+
+//     const{_id }=decodedObj;
+    
+//     const user=await User.findByIdAndUpdate(_id);
+//     if(!user){
+//         throw new Error("User not found");
+//     }
+//   // because this is a middleware we will call next ,
+//   // next is called to move the  route handler 
+//   next();
+// }catch(err){
+//     res.status(400).send("ERROR:" + err.message);
+//   }
+
+//     //Validate the token 
+//     // Find the user 
+
+// }
+
+
+
+// module.exports={
+//     adminAuth,
+//     userAuth,
+// }
+
+// Added the code for jwt token expire 
+
+
+//Add the userAuth middleware in profile Api and a 
+//new sendConnectionRequest Api
+
+//set the expiry ofJWT token and cookies to 7 days
+// if someone forget to log out
+// then he sees your profile for life time 
+
+
+
+// app.post("/login",async(req,res)=>{
+//   try {
+//     const {emailId,password}=req.body;
+//      if (!validator.isEmail(emailId)) {
+//       throw new Error("Invalid email address");
+//     }
+//     // it will return the one email id 
+//     const user = await User.findOne({ emailId });
+//     if (!user) {
+//       throw new Error("Invalid credentials");
+//     }
+//     // bcrypt.compare is there to check the password 
+    
+//     // const isPasswordValid=bcrypt.compare("Elon@123",
+//     //   "$2b$10$qic2i2xAN6DcRcJAEv39au/xd649scg05NegxJfl/WcnSczGo/9kS"
+//     // )
+//     const isPasswordValid=await bcrypt.compare(password,user.password);
+//     if(isPasswordValid){
+//       // express give a good way to attch the cookie 
+//       //res.cookies(name,value)
+//       // There is a method for it 
+//       // jwt.io website 
+//       //it has some secret information is stored inside it 
+//       //jwt contain special information inside it 
+//       //jwt token has threee things - header ,payload ,signature 
+//       // payloaf will contain the secret information hide inside the code 
+
+
+//       // Create a JWT token 
+//       // jsonwebtoken is the main one ,good package developed bi oauth 
+//       //it will give you method to sign up as well
+//       //userid of akshay will be hide out in the token 
+//       //Cookie Hijacking -- i can access your private information
+//       //Secret key 
+//       //1 h is one hour 
+//       //expire in 0d ,create the token and you will expire immediately
+      
+//       // in namaste dev ,they have expired the token in 1 day 
+
+//       // in normal website ,the expirey is generally 1 week 
+
+//       //you can expire the cookies as well 
+
+//       // search as res.cookies() in expressjs.com
+
+
+    
+
+//       const token=await jwt.sign({_id:user._id},"DEV@Tinder$798",{
+//         expiresIn: "7d",
+//       });
+
+//       console.log(token);
+
+//       // Add the token to cookie and send back to the user 
+//       // in the postman you will get the token 
+//       // to make only httpOnly only call used true
+//       // httpOnly: true 
+//       // but in production always used https 
+//       //expires the token in 8 hr 
+
+//       res.cookie("token",token,{
+//         expires: new Date(Date.now() + 8 *3600000),
+//       });
+//       res.send("Login Successful!!!");
+
+ 
+//     }
+//     else {
+//       throw new Error("Password is not correct");
+//     }
+//   }catch(err){
+//     res.status(400).send("ERROR :" +err.message);
+//   }
+// });
+
+// // whenever the profile api is called i need to validate the cookie 
+
+// app.get("/profile",userAuth,async(req,res)=> {
+//   //First it will go to the userAuth
+//   //you can change the middleware and request handler 
+//   //according to the express js
+//   //here in the request user will already be there due to the middleware 
+//  // req.cookies search this in the documentation
+// try{
+//   const user=req.user;
+//   res.send(user);
+// // const cookies=req.cookies;
+
+// // const{token}=cookies;
+// // // Validate my token
+// // if(!token){
+// //   throw new Error("Invalid Token");
+// // }
+
+// // const decodeMessage=await jwt.verify(token,"DEV@Tinder$798");
+// // // console.log(decodeMessage);
+// // const{_id}=decodeMessage;
+// // // console.log("Logged In user is: " +  _id);
+
+
+// // const user=await User.findById(_id);
+// // if(!user){
+// //   throw new Error("User does not exit");
+// // }
+// // res.send(user);
+
+// //we have atached the user in the request itself
+
+
+
+// // console.log(cookies); // undefined
+
+
+// }
+// catch(err) {
+//   res.status(400).send("ERROR : " + err.message);
+// }
+
+// // post adding the middleware it will work clearly
+// //once you login then you hitthe profile,you can see the response clearly
+// // to read the cookie we would need a middleware cookie parser 
+// // npm install cookie-parser 
+
+// })
+
+
 
 
 
