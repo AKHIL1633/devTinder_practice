@@ -1780,6 +1780,53 @@
 
 // })
 
+// there is something known as mongoose schema method
+//user schema defines the user 
+
+
+// I can attach few methods to his Schema 
+// that is appilcable to all user that is nothing but 
+// helper method 
+
+// when i am login ,i am creating the jwt token 
+// and injecting the userid to the token
+//you can offload such things to the user schema
+
+// below are the examples of the schema methoda
+
+//user.js 
+
+// userSchema.methods.getJWT=async function(){
+//   const user=this
+//   const token=await jwt.sign({_id: user._id},"DEV@Tinder$798",{
+//     expiresIn:"7d",
+//   });
+//   return token;
+// }
+
+// userSchema.methods.validatePassword = async function(passwordInputByUser){
+//     const user =this ;
+//     const passwordHash=user.password;
+
+//     // 
+//     const isPasswordValid = await bcrypt.compare(
+//         passwordInputByUser,
+//         passwordHash
+//     );
+//     return isPasswordValid;
+
+// }
+
+
+// Create userSchema method to getJWT()
+// Create userSchema method to comparepassword(passwordInputByUser)
+
+
+
+//Episode -11 Diving into the Apis and express Router 
+
+
+
 
 
 

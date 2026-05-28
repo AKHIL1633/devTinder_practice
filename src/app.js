@@ -54,7 +54,9 @@ app.post("/login",async(req,res)=>{
      if (!validator.isEmail(emailId)) {
       throw new Error("Invalid email address");
     }
-    // it will return the one email id 
+    // it will return the one email id
+    // here user will be that particular user only
+
     const user = await User.findOne({ emailId });
     if (!user) {
       throw new Error("Invalid credentials");
@@ -64,7 +66,7 @@ app.post("/login",async(req,res)=>{
     // const isPasswordValid=bcrypt.compare("Elon@123",
     //   "$2b$10$qic2i2xAN6DcRcJAEv39au/xd649scg05NegxJfl/WcnSczGo/9kS"
     // )
-    const isPasswordValid=await bcrypt.compare(password,user.password);
+    const isPasswordValid=await user.validatePassword(password);
     if(isPasswordValid){
       // express give a good way to attch the cookie 
       //res.cookies(name,value)
@@ -95,10 +97,13 @@ app.post("/login",async(req,res)=>{
 
 
     
+      // whatever the current user will be  logged ,whose token will be 
+      // come back 
+      // we have offloaded those logic to the schema itself 
+      //it will make the schema reusuable
 
-      const token=await jwt.sign({_id:user._id},"DEV@Tinder$798",{
-        expiresIn: "7d",
-      });
+
+      const token=await user.getJWT();
 
       console.log(token);
 

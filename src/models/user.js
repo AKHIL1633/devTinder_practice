@@ -1,5 +1,9 @@
 const mongoose=require("mongoose");
+
 const validator=require("validator");
+
+const bcrypt =require("bcrypt");
+
 
 /// mongoose documention schema types 
 /// you can read about the Schema Types 
@@ -137,6 +141,35 @@ const userSchema =new mongoose.Schema ({
 });
 // schema define the model 
 
+
+// Akshay and Elon all are instances of the user  models
+// So when i refer to the this over here 
+//here this  will refer to that particular instances 
+
+// this keyword will not work with arrow functions 
+
+
+
+userSchema.methods.getJWT=async function(){
+  const user=this
+  const token=await jwt.sign({_id: user._id},"DEV@Tinder$798",{
+    expiresIn:"7d",
+  });
+  return token;
+}
+
+userSchema.methods.validatePassword = async function(passwordInputByUser){
+    const user =this ;
+    const passwordHash=user.password;
+
+    // 
+    const isPasswordValid = await bcrypt.compare(
+        passwordInputByUser,
+        passwordHash
+    );
+    return isPasswordValid;
+
+}
 
 //First argument will be the name of the model and second one will be schema type 
 // const userModel =mongoose.model("User",userSchema);
