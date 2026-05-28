@@ -4,6 +4,7 @@ const validator=require("validator");
 
 const bcrypt =require("bcrypt");
 
+const jwt=require("jsonwebtoken");
 
 /// mongoose documention schema types 
 /// you can read about the Schema Types 
