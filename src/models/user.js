@@ -71,10 +71,14 @@ const userSchema =new mongoose.Schema ({
     firstName: {
         type: String,
         required: true,
-        minLength: 4
+        minLength: 4,
+        maxLength: 50,
+        trim: true,
     },
     lastName: {
-        type: String
+        type: String,
+        maxLength: 50,
+        trim: true,
     },
     // there can be changes of space in the front and at the end,otherwise mongo db will treat it differently
     // to make your data more safe and clean
@@ -103,7 +107,7 @@ const userSchema =new mongoose.Schema ({
     age: {
         type:Number,
         min:18,
-
+        max:100,
     },
     //custom function validation
     // as soon data is put into database ,the validation will run ,if it throw some error then it will not be validated
@@ -127,17 +131,26 @@ const userSchema =new mongoose.Schema ({
         if(!validator.isURL(value)){
         throw new Error("Invalid Photo Url: ",+ value);
        }
+    }
     },
     about:{
         type: String,
         default:"This is a default about of the user",
+        maxLength: 500,
     },
-    skills:
-    {
+    skills:{
         type:[String],
+        validate(value){
+            if(value.length > 50){
+                throw new Error("Skills cannot have more than 50 entries");
+            }
+            if(value.some(skill => skill.length > 30)){
+                throw new Error("Each skill name must be under 30 characters");
+            }
+        }
     }
 }
-},{
+,{
     timestamps: true,
 });
 // schema define the model 
