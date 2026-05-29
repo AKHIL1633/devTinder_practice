@@ -1846,7 +1846,23 @@
 //Create a list of all Api you  can think of in Dev Tinder
 //Group multiple  routes under respective routers 
 
+// Read documentation for express.Router
+//Creat routes folder for managing auth,profile,request routers
+//Create authRouther,profileRouter,requestRouter
+//import these routers in app.js
 
+//Now create the log out api 
+
+// a good cook is someone who cooks good food
+// a good software ,who is good at solving problems
+
+// for production, the log out logicis very complicated
+//for dev tinder it is simple
+
+// Create POST/logout API
+// Create PATCH/profile/edit
+//  Create PATCH/profile/password Api ==> forgot password Api
+// Make you validate all data in every Post ,PATCH apis
 
 
 
