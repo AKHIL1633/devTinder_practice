@@ -1865,6 +1865,70 @@
 // Make you validate all data in every Post ,PATCH apis
 
 
+// Episode-12 Logical DB Query & Compound Indexes
+
+// you can add connectionRequestusing Array for all the users 
+// This is not a good design 
+//some people can reject ,so many corner cases are there 
+// keep it away from user collection
+//user Schema was defining the schema of user 
+
+// How to put indes in the database 
+
+//There  are 1000 people 
+// connectsrequest 1000 records 
+// as my connection grows 
+// my query will become very very slow
+// when you scale the database ,it becomes difficult for it 
+//use index it become easy for it 
+
+// 1 million records 
+// 100 people name with virat 
+// when you are doinf search query 
+// my db will take 5-10 sec 
+// db will take to look into each and every 
+// if you create index in the first index 
+// your query will become very very fast
+
+
+// for schema  field  = unique 
+
+// mongodb will create the index automatically for it
+// Mongodb create SchemaTypes 
+// go for Indexes 
+//index:true
+//but unique index is much faster 
+
+// unique :where value can be unique use that
+//connection request 
+// million of records 
+// query will be very slow
+//Compound Index in mongo db
+// create index in every colums will cones with the cost
+//Dont create the random index
+
+
+//Read more about indexed in mongoDb
+//Why do we need index in Db?
+//What is the advantage and disadvantage of creating?
+
+//Create Connection Request Schema 
+//Send Connection Request API
+// pROPER VALIDATION OF DATA
+// Think about all corner cases 
+
+// $or mongoose 
+// $and mongoose 
+
+ // Read more about the logical query 
+
+ //Schema.pre("save") function
+
+
+// Always Think about corner cases 
+
+
+
 
 
 

@@ -25,8 +25,17 @@ IN LEFT Swipe Rejected
 
 ### ConnectionRequestRouter
 
+
+// Can i make the status dynamic 
+
+-POST /request/send/:status/:userId
+status can br ignored and accepted 
+
 -POST /request/send/interested/:userId
 -POST/request/send/ignored/:userId
+
+
+
 -Post/request/review/accepted/:requestId
 -Post/request/review/rejected/:requestId
 
