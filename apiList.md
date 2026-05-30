@@ -27,13 +27,15 @@ IN LEFT Swipe Rejected
 
 
 // Can i make the status dynamic 
-
+##
 -POST /request/send/:status/:userId
 status can br ignored and accepted 
 
 -POST /request/send/interested/:userId
 -POST/request/send/ignored/:userId
 
+##
+-Post/request/review/:status/:requestId
 
 
 -Post/request/review/accepted/:requestId
@@ -42,8 +44,17 @@ status can br ignored and accepted
 
 
 ### userRouter
+
+
+
 -GET /user/connections
--GET/user/requests/received
+
+
+// Find all the connection request user has received 
+
+
+-GET/user/requests
+
 -GET/user/feed 
 //- Gets you the  profiles of other users on platform 
 

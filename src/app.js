@@ -27,7 +27,7 @@ app.use(cookieParser());
 const authRouter= require("./routes/auth");
 const profileRouter=require("./routes/profile");
 const requestRouter=require("./routes/requests");
-
+const userRouter=require("./routes/user");
 // Whenever a request is coming at / go to the authrouter
 //see if there is a route matching 
 // example login then response is send from here 
@@ -37,7 +37,7 @@ const requestRouter=require("./routes/requests");
 app.use("/",authRouter);
 app.use("/",profileRouter);
 app.use("/",requestRouter);
-
+app.use("/",userRouter);
 // to get the info of the Model.findByIdAndUpdate
 // go to the Api then model
 
