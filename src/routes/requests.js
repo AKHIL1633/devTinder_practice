@@ -88,4 +88,58 @@ requestRouter.post("/request/send/:status/:toUserId",userAuth,async(req,res)=>{
 //     }
 // }
 
+// userAuth ,the token is valid or not in the cookie 
+// if everything works fine we will move to the request handler 
+
+requestRouter.post("/request/review/:status/:requestId",userAuth,
+  async(req,res)=>{
+    // you will get this with user.Auth
+    // make sure you cover all corner cases 
+
+    try{
+    const loggedInUser=req.user;
+    const{status,requestId}=req.params;
+
+    const allowedStatus=["accepted","rejected"];
+    if( !allowedStatus.includes(status)){
+      return  res.status(400).json({
+        message : "Status not allowed!"
+      });
+    }
+
+    
+    const connectionRequest=await ConnectionRequest.findOne({
+      _id:requestId,
+      toUserId:loggedInUser._id,
+      status:"interested"
+    })
+    if(!connectionRequest){
+      return  res
+      .status(404)
+      .json({message:"Connect request not found"});
+    }
+    //Akshay ==> Elon Akshay is sending to Elon ,i should only work Elon 
+    // should be loggined in 
+    // Elon is authorise to approve the request 
+    // if the connection state is ignored , you cant change it 
+    // you cant send the request again  
+    // the status should be interested 
+     
+    // Validate the status
+
+    // Akshay ==> Elon
+    // loggedInId  == toUserId
+    // status = interested
+    //request Id should be valid 
+
+    connectionRequest.status=status;
+    const data=await connectionRequest.save();
+    res.json({message: "Connection request"+ status,data})
+
+    }catch(err){
+      res.status(400).send("ERROR: "+err.message);
+    }
+  }
+)
+
 module.exports=requestRouter

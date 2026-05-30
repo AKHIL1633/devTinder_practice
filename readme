@@ -2,6 +2,7 @@
 
 //https://mongoosejs.com/docs/guide.html
 
+// mongoose 8.6.2 version documentation
 
 // Crud operations 
 
@@ -1927,6 +1928,38 @@
 
 // Always Think about corner cases 
 
+// Episode 13 | ref,Populate & Thought process of writing Apis
+
+// -Post/request/review/accepted/:requestId
+// -Post/request/review/rejected/:requestId
+
+// We will review the request and we will review and accept ,reject the request
+
+// Always make sure validation safe 
+//Always have an Eye of an attacker 
+
+// Write code with proper validation for Post api 
+// 6a1943b68d90c624307aef19
+
+// Thought Process -- Post vs get
+// post posting some information to the database
+// get getting some information from the database 
+
+// post think that attackers can put something into the database
+// Get think that whatever the data i am sending  to the user 
+//is 100% unauthorised 
+//loggedin user is a verified user 
+
+
+//data leak 
+
+// making connection between two connection
+
+//Populate -create relation between two collection
+
+// using ref 
+//Read about ref and populate 
+// Create Get/user/requests/received with all the checks
 
 
 
