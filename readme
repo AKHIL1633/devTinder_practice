@@ -1962,6 +1962,76 @@
 // Create Get/user/requests/received with all the checks
 
 
+// userRouter.get("/feed",userAuth,async(req,res)=>{
+//     try {
+//          // user should avoid certain cards  , see all the user cards except
+//          // his own card
+//          // his connection
+//          // ignored people he should not see
+//          // already sent the connection request (also he doest not see)
+
+//          // Example : Rahul=[Akshay,Elon,Mark,Donald,MsDhoni ,Virat]
+//          // Rahul ==> Akshay , Rahul ==>Elon 
+//          //Rahul =[Mark,Donald,MsDhoni,Virat]
+//          //Rahul -> Akshay -> rejected Rahul ->Elon -> Accepted
+//         // Akshay will not see Rahul 
+
+//         const loggedInUser=req.user;
+//         // Find all connection requests ( sent +received ) that i will not see in the feed
+//         // send or recive the connection by me 
+
+//         const connectionRequests = await ConnectionRequest.find({
+//             $or: [
+//                 {
+//                     fromUserId:loggedInUser._id ,
+//                 },
+//                 {
+//                     toUserId:loggedInUser._id,
+//                 }
+//             ]
+//         }).select("fromUserId toUserId")
+
+
+
+     
+//     // it will  alwayscontain unique element
+
+
+//     const hideUsersFromFeed=new Set();
+//     connectionRequests.forEach((req) =>{
+//         hideUsersFromFeed.add(req.fromUserId.toString());
+//         hideUsersFromFeed.add(req.toUserId.toString());
+//     })
+//     console.log(hideUsersFromFeed)
+//     const users=await User.find({
+//        $and: [ 
+//         { _id: {$nin:Array.from(hideUsersFromFeed)}},
+//         { _id: {$ne:loggedInUser._id}},
+//        ]
+//     });
+
+//       res.send(users);
+//     }
+//     catch(err){
+//         res.status(400).json({message:err.message})
+//     }
+// })
+
+// Write logic for /feedApi 
+//Explore the $nin,$and ,$ne and othe query parameter operators 
+
+// Let get into Theory of Pagination 
+//  /feed?pages=1&limit=10 => first 10 users 1-10 ==> skip(0) & limit(10)
+// /feed?pages=2&limit=10 ==> 11-20 ===> .skip(10) &.limit(10)
+// /feed?pages=3&limit=10 ==>21-30 ===> .skip(20) & .limit(10)
+
+//in mongodb we  have two  important functions
+
+// Skip() && limit()
+
+// skip=(page-1)*limit ;
+
+
 
 
 
@@ -1997,4 +2067,3 @@
 // The main job of express.js is go when by one 
 // whenever you got the route ,it will try to  go and check the all the middleware
 // all the requesthandlers ,from wherever it got the response 
-
