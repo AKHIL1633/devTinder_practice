@@ -6,6 +6,8 @@ const userRouter=express.Router();
 const {userAuth}=require("../middlewares/auth")
 const ConnectionRequest=require("../models/connectionRequest");
 
+const User=require("../models/user");
+
 userRouter.get("/user/requests/received",userAuth,async(req,res)=>
 {
     try{
@@ -76,5 +78,149 @@ userRouter.get("/user/connections",userAuth,async(req,res) => {
     }
 
 })
+
+// if i want to see the feed of Akshay
+// There is no mean to show the card of whom who has not accepted
+// interested one or ignored one ,he does not see 
+//Akshay should not see his card of itself
+// logic is complex 
+//Can be the interview question as well
+
+
+
+// if my database has million of users 
+// We should add pagination ,my api should show 10 user in 1 page 
+
+
+// userRouter.get("/feed",userAuth,async(req,res)=>{
+//     try {
+//          // user should avoid certain cards  , see all the user cards except
+//          // his own card
+//          // his connection
+//          // ignored people he should not see
+//          // already sent the connection request (also he doest not see)
+
+//          // Example : Rahul=[Akshay,Elon,Mark,Donald,MsDhoni ,Virat]
+//          // Rahul ==> Akshay , Rahul ==>Elon 
+//          //Rahul =[Mark,Donald,MsDhoni,Virat]
+//          //Rahul -> Akshay -> rejected Rahul ->Elon -> Accepted
+//         // Akshay will not see Rahul 
+
+//         const loggedInUser=req.user;
+//         // Find all connection requests ( sent +received ) that i will not see in the feed
+//         // send or recive the connection by me 
+
+//         const connectionRequests = await ConnectionRequest.find({
+//             $or: [
+//                 {
+//                     fromUserId:loggedInUser._id ,
+//                 },
+//                 {
+//                     toUserId:loggedInUser._id,
+//                 }
+//             ]
+//         }).select("fromUserId toUserId")
+
+
+
+     
+//     // it will  alwayscontain unique element
+
+
+//     const hideUsersFromFeed=new Set();
+//     connectionRequests.forEach((req) =>{
+//         hideUsersFromFeed.add(req.fromUserId.toString());
+//         hideUsersFromFeed.add(req.toUserId.toString());
+//     })
+//     // console.log(hideUsersFromFeed)
+//     const users=await User.find({
+//        $and: [ 
+//         { _id: {$nin:Array.from(hideUsersFromFeed)}},
+//         { _id: {$ne:loggedInUser._id}},
+//        ]
+//     }).select(USER_SAFE_DATA);
+
+//       res.send(users);
+//     }
+//     catch(err){
+//         res.status(400).json({message:err.message})
+//     }
+// })
+
+
+// http://localhost:7777/feed?page=2&limit=2
+//limit=100000 lots of cost
+
+userRouter.get("/feed",userAuth,async(req,res)=>{
+    try {
+         //  /feed:skip  
+         //  req.params
+
+         //  /feed?limit=1
+         //  req.query
+
+         // user should avoid certain cards  , see all the user cards except
+         // his own card
+         // his connection
+         // ignored people he should not see
+         // already sent the connection request (also he doest not see)
+
+         // Example : Rahul=[Akshay,Elon,Mark,Donald,MsDhoni ,Virat]
+         // Rahul ==> Akshay , Rahul ==>Elon 
+         //Rahul =[Mark,Donald,MsDhoni,Virat]
+         //Rahul -> Akshay -> rejected Rahul ->Elon -> Accepted
+        // Akshay will not see Rahul 
+
+
+        const loggedInUser=req.user;
+        const page=parseInt(req.query.page) //1
+        let limit=parseInt(req.query.limit) //10
+        limit=limit > 50 ? 50 : limit
+        // we need to calculate the skip 
+
+        const skip=(page-1)* limit ;
+
+        // Find all connection requests ( sent +received ) that i will not see in the feed
+        // send or recive the connection by me 
+
+        const connectionRequests = await ConnectionRequest.find({
+            $or: [
+                {
+                    fromUserId:loggedInUser._id ,
+                },
+                {
+                    toUserId:loggedInUser._id,
+                }
+            ]
+        }).select("fromUserId toUserId")
+
+
+
+     
+    // it will  alwayscontain unique element
+
+
+    const hideUsersFromFeed=new Set();
+    connectionRequests.forEach((req) =>{
+        hideUsersFromFeed.add(req.fromUserId.toString());
+        hideUsersFromFeed.add(req.toUserId.toString());
+    })
+    // console.log(hideUsersFromFeed)
+    const users=await User.find({
+       $and: [ 
+        { _id: {$nin:Array.from(hideUsersFromFeed)}},
+        { _id: {$ne:loggedInUser._id}},
+       ]
+    }).select(USER_SAFE_DATA).skip(skip).limit(limit)
+
+      res.json({data :users});
+    }
+    catch(err){
+        res.status(400).json({message:err.message})
+    }
+})
+
+
+
 
 module.exports=userRouter;
