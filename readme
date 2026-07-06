@@ -2030,10 +2030,473 @@
 // Skip() && limit()
 
 // skip=(page-1)*limit ;
+// vite is a trending build tool 
+
+//------------------------------------------------------------------------
+
+// let see how to deploy our application to the actual server 
+// we will create a server and deploy it our app in aws 
+// create our own server ,instance and deploy our machine 
+
+
+// AWS MANAGEMENT CONSOLE 
+//on our machine ,we are running the code in our local system 
+//we want to deploy our code into some other system,that machine is connected to internet ,it can be accessible all over the world
+// you can choose google cloud services as well
+//lot of company deploy in the aws machine 
+//there are lot of tool and start app ,which you give your github url and they will deplploy it 
+// just they need  one click url for the deployment
+
+
+//aws.amazon.com/console/
+//they are lot of steps is involved 
+//try to debug the code ,Please dont give up and most of the students give up
+
+
+
+// Create the aws account 
+
+// go to the sign up and new to the aws 
+
+// aws keep on changing their website 
+//verify your email id quickly
+// set up the password 
+// How do you plan your aws ? // personal 
+// now it will ask for credit or debit card number 
+// it ask for the card holder name
+// pan number 
+//do hesitate to give it ,it will not automatically charge it for it 
+
+// Basic Support - fREE
+
+// YOU WILL MOVE TO THE AWS CONSOLE 
+
+
+// CREATE A N NEW INSTANCE 
+// SEARCH FOR EC2 INSTANCE ,THAT MEANS ELASTIC COMPUTE ,YOU ARE TAKING MACHINE FROM AWS
+//instance (running) ,Click on Launch instance 
+
+// Launch an instance 
+// Name and tags 
+// DevTinder 
+// it will ask which operating system you want to run 
+//Select ubuntu - most of the comapny use it 
+
+//instance type for free t2.micro 
+
+// it can handle basic level of traficc 
+
+// 1 gb of memory 
+
+// create security group as it is 
+//Key Pair(login)
+
+//click on new key pair
+//devTinder-secret
+//RSA -it will generate a pm file for me 
+
+// pm file is like a key to accesss to our server 
+
+// create a key as well
+
+// what type of ram and storage is already selected 
+
+//click on launch instance 
+
+//it will take some time to create the instance 
+//aftger some time it will go for live 
+//wait till status is initialized 
+
+
+// create a new machine for you in the cloud with your operating system 
+//it will show Public ip of your machine 
+//go over there ,click on the  Connect 
+
+//it will ways to connect 
+// go to the Ssh  (as i want to connect with your terminal )
+
+// go to your teminal
+
+//cd Download  (key is here)
+//chmod 400 devTinder-secret.pem
+//ssh -i "devTinder-secret.pem" ubuntu@ec2-43-204-96-49.ap-south-1.compute.amazonows.com (you have to be present in the download folder)
+//(here address of the machine is given ,to which you are connected)
+
+// yes 
+//it will connect to your machine
+//you will be into terminal of the machine(successfully access of  the machine)
+
+
+// if you leave the terminal as it is it will be automatically be disconnected
+
+//install node.js
+//there will curl command which will help you to install node.js in the machine
+
+// curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.5/install.sh | bash
+
+//nvm install  16.17.0
+
+// (you have make sure the version of the node.js you are using must match it )
+
+// First check the version in your system 
+
+// if you lost connect to the machine use ssh to connect again 
+
+// nvm install 16.17.0
+
+// you successfully install you node version 
+
+// our system is ready ,where i will get the code ,i will get the code from the git hub
+// grab the code and clone the code into your system 
+
+// git clone  https://github.com/akshaymarch7/devTinder-web.git (Frontend)
+// Similarly get your backend project 
+
+
+// git  clone  https://github.com/akshaymarch7/devTinder.git (backend )
+
+// ls (to list the folder )
+// Start deploy the application into our system 
+
+// First all we will deploy the front end  application in the server 
+
+
+// (remote machine --aws machine )  
+
+//ls 
+//devTinder devTinder-web/
+
+//cd devTinder-web/
+
+// npm run build 
+
+// it will say vite not found 
+//first we have to install the dependies ,first we have to install the npm
+
+// npm install
+
+//npm run build (it will build by project)
+
+
+//ls (there you will the see the dist folder is created)
+
+//dist will contain all the code which we need to  run on the server 
+
+// to deploy the frontend we need one thing which is known as nginx
+
+// nginx is a free software (which will give you the web server,load balancer )
+
+// we will used to host our frontend application 
+
+// ------------------------------------------------------
+
+// sudo apt update 
+
+//sudo apt install  nginx  (it will give the http server)
+
+
+// sudo systemctl start nginx
+// sudo systemctl enable nginx (all the code we have our frontend ,will be copied in the http of nginx)
+
+// Copy code from dist(build files) to /var/www/html/
+// ~/devTinder-web $ cd /var/www/html/
+// index.nginx-debian.html
+
+// /var/www/html $ cd 
+// $ cd devTinder-web $sudo  scp -r  dist/*/var/www/html
+
+// ~/devTinder-web$ cd/var/www/html
+// ls
+// assests index.html  index.nginx-debian.html vite.svg
+
+
+// pUblic ip address(where we can access the server)
+// in that page  go to the Security ,click on the security group ,you have the inbound rules ,to allow access the port number 80
+
+// custom Tcp  
+// port range 80 
+// 0.0.0.0/0 ( i want to access from anywhere in the internet)
+
+// save the rule, you will port 80 is enabled 
+
+
+// go to my ip 43.204.96.49 
+// refresh the page ,you have the code the front end running
+
+//inspect - you will most of the features are failing as backend is not working 
+
+// Network  -> Fetch/XHr -> backend api are failing 
+// feed failed 
+
+// view failed
+// as the backend api are not deployed yet 
+
+//this how you deploy the frontend project 
+
+
+// There you  lot of steps here ,try to do it three times 
+// To get it remember 
+
+
+// when you google ,you will know how to install nginx 
+
+//---------------------------------------------
+// Deployment 
+// -- Signup on Aws account
+// -- Launch an instance
+// -- chmod 400 <secret>.pm
+// ssh -i "devTinder-secret.pem" ubuntu@ec2-43-204-96-49.ap-south-1.compute.amazonows.com
+
+// Install the node version 16.17.0
+//Git clone 
+//Frontend step
+// npm install  -->it will install the dependies in the project
+//npm run build 
+
+// sudo apt update 
+// sudo apt install  nginx 
+// sudo systemctl start nginx
+// sudo systemctl enable nginx
+// Copy code from dist(build files) to /var/www/html
+// sudo scp -r dist/* /var/www/html/
+// Enable port 80 of your instance
+
+
+//how you run the frontend project  npm run dev (it will run in development mode)
+
+// to run the project in the production 
+// first you will build the project 
+// using vite(it is a bundler) -- webapp ,parcel ,vite is a bundler 
+// First you have to build the project 
+
+//npm run build (bundles up you project ,create the dist folder of it ,it will create all the necessary files for your project)
+//src is the code we write but at the deployiny we will need the compile code ,make the code compressed ,it will be available in the dist
+
+
+
+// -----------------------------------------------------------------------------------------------------------------------
+
+// deploying the backend application  to the server 
+
+// pm file is in download which is available here only
+
+// ssh -i "devTinder-secret.pem" ubuntu@ec2-43-204-96-49.ap-south-1.compute.amzaonaws.com
+
+// Steps are different to deploy the backend 
+
+// Backend 
+//cd devTinder 
+//npm install (installing our backend dependency)
+
+// git pull (to see the updated db password)
+
+// package.json we have npm run start (on the production we have to run this command )
+
+// npm run start (my application will start running)
+// database cant be access from the machine ,i need to allow this machine to accesss the data base 
+
+// ATLAS
+// Network Access  Allow you ip address  
+// or Allow access from Anywhere  then you will allow the database connection established 
+//it is risk for the database as it can be accessed from anywhere in the internet 
+
+
+//EC2>iNSTANCES  >pUBLIC ipv4 address 43.204.96.49
+
+// add in the network access 
+// npm run start 
+//Database  connection established 
+//Server is successfully listening on port 7777 ...
+
+
+// my application is successfully running on 7777
+//43.204.96.49:7777 (it will not work)
+
+// we have to enable this port in aws
+//in aws instances->Security  ->security group 
+//Custom Tcp -> Port range : 7777  0.0.0/0 allow it from anywhere on the internet 
+
+
+//there are three port active 22,7777,80
+
+//43.204.96.49:7777/feed 
+//Please login 
+// if i exit the terminal ,then it will not run 
+//we have to run npm start on the background ,it should run forever on the server 
+
+//pm2 is a daemon process manager 
+// npm install pm2 -g (g is for globally )
+
+// pm2 start npm --start (start the pm2 process ,new process is created which will run 24/7)
+
+// this process is running on the background ,even i logout from the terminal  
+
+// to check the logs 
+
+//pm2 logs 
+
+// to clear the logs
+
+// pm2 flush npm 
+//pm2 list 
+//pm2 stop npm 
+
+//pm2 delete npm (it will delete the process)
+
+//pm2 start npm --name "devtinder-backend" -- start (custom name to the process)
+
+// you go the frontend it will not work 
+
+// 43.204.96.49 
+//inspect  _> fetch/Xhr 
+// request url: http://localhost:7777/feed
+//application is running on 7777
+// that a mismatch 
+//it should be the local host ,it should be the ip
+
+// we have to make sure that frontend and backend should be integrated together 
+
+
+
+// 43.204.96.49 (Frontend running on this ip)
+// 43.204.96.49:7777/feed (backend running on this ip )
+
+
+// sudo nano /etc/nginx /
+// sudo  nano /etc/nginx/sites-available /default
+// sudo systemctl restart nginx
+
+
+// 43.204.96.49/api/feed 
+// Please Login 
+
+// through proxy pass you are doing it 
+
+//inspect the frontend 
+//it is still hard coded to the local host  http://localhost:7777/profile/view 
+
+// in the constant .js 
+// we have the base url 
+// in the devTinder -web
+ //http://localhost:7777
+
+ // instead of it write 
+ // export const BASE_URL="http://localhost:7777";
+
+ // push this code to the github 
+ // commit the code already it was the local change 
+
+ // login to the machine 
+ // cd  devTinder-web/
+ // git pull
+ 
+ // if i refreshing the page it will the work 
+
+ // again you have to run npm build - follow the same procedure which we did earlier
+
+ // npm run build
+ // sudo  scp -r dist/*/var/www/html
+ // refresh the page now the login form has come up 
+
+ // now the api is called correctly 
+
+
+ // ------------------------------------------------------------------
+
+ // Adding 
 
 
 
 
+
+
+
+//-------------------------------------------------
+
+//Notes  
+//Backend 
+// update the Db password
+// allowed the ec2 instances  public ip on mongodb server 
+
+// installed npm install pm2 -g 
+// pm2 start npm --name "devTinder-backend" -- start 
+// pm2 start npm -- start 
+//pm2 logs 
+//pm2 list ,pm2 flush <name>,pm2 stop <name> ,pm2 delete <name>
+
+//  Frontend - http://43.204.96.49/
+//  Backend - http://43.204.96.49:7777/
+
+// Domain name = if i map this doname name to this ip  domain name =devtinder.com => 43.204.96.49 (DNs mapping)
+// frontend = devtinder.com
+// Backend =  devtinder.com:7777 => devtinder.com/api (try to map it under it )
+// for that we use nginx  (nginx proxy pass) you can map your domain name 
+
+// ask chat gpt 
+//nginx proxy pass /api  to 7777 node application
+//it will provide nginx configuration(i need to put it nginx config )
+
+//43.204.96.49/api 404 not found 
+// whenever you made any request it will the nginx 
+//act as a load balancer
+
+//proxy passs means 43.204.96.49/api should be mapped to the http://43.204.96.49:7777/
+// nano is used to edit the file 
+// sudo nano /etc/nginx /
+// sudo  nano /etc/nginx/sites-available /default
+
+// nginx listening it on 80 port 
+
+//          server {
+//     listen 80;
+//     server_name your-domain.com;
+
+//     location / {
+//         root /var/www/html;
+//         index index.html;
+//         try_files $uri $uri/ /index.html;
+//     }
+//     server_name 43.204.96.49 (else you can put the server name)
+
+//     location /api/ {
+//         proxy_pass http://localhost:7777/;
+
+//         proxy_http_version 1.1;
+//         proxy_set_header Upgrade $http_upgrade;
+//         proxy_set_header Connection "upgrade";
+//         proxy_set_header Host $host;
+//         proxy_set_header X-Real-IP $remote_addr;
+//         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+//         proxy_set_header X-Forwarded-Proto $scheme;
+//     }
+// }
+// restart the nginx  
+// sudo systemctl restart nginx 
+// modify the baseurl in frontend system project to /api 
+
+
+
+
+
+
+
+
+
+// go the mongo db to generate the new password 
+
+//Atlas cloud.mongodb.com 
+//Database Access  
+// edit 
+//copy the password 
+
+// paste in  database.js 
+
+// you will see the database connection established 
+//commit it and save the changes 
+
+// i will also the update the code in the remote as well write 
+
+// do the  git pull
 
 
 /// WebSocket.io
