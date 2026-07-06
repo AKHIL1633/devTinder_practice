@@ -20,6 +20,17 @@ const {userAuth}=require("./middlewares/auth");
 
 const user = require("./models/user");
 
+const cors=require("cors");
+// cors option could whitelist some origin
+// backend should know where your frontend is hosted 
+
+// you are whitlisting this domain
+
+app.use(cors({
+  origin: "http://localhost:5173",
+  credentials:true
+}));
+
 app.use(express.json());
 
 app.use(cookieParser());
