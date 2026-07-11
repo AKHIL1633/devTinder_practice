@@ -2403,7 +2403,554 @@
 
  // ------------------------------------------------------------------
 
- // Adding 
+ // Adding a custom domain name
+
+// You can actually purchase a domain name 
+
+// godaddy
+
+// Search for the domain name you want to search 
+
+// devtinder.in
+
+// continue to cart 
+// fill the details of the cart 
+
+// 1 year  Rs 579 , i have to pay 
+// it will show devTinder is ready 
+
+// go the All products and Services devTinder.in 
+// you will get the option to manage Dns management over here 
+
+// dns means domain name server 
+//it will tell which ip address it is mapping to 
+
+// you have to setup the ssl certificate 
+//you can use cloudflare.com
+
+// here you will not manage  the dns  in the godaddy itself 
+
+// we personally used cloudflare in it 
+
+// you can create an account in it and login in with it 
+
+// there will be a option to Add a domain  name 
+
+// it will ask for the Enter an existing domain :
+// devtinder.in
+// Quick scans for Dns records  -> Continue  
+// select the free one ,i mean the plan 
+
+
+//  i want cloud flare to manage the  dns for my domain name 
+//if you click on continue to activation 
+
+
+// Your assigned Cloudflare nameservers :
+//adi.ns.cloudflare.come (Copied to clipboard)
+
+//if you go on godaddy 
+//Click on the Nameservers  (it will tell you who will manage the dns)
+// you have to change the Nameservers (as you dont want to mab=nage the nameserver by godaddy)
+
+// Edit namessrvers 
+//I will used my own nameservers
+
+//adi.ns.cloudflare.com
+
+//lee.ns.cloudflare.com
+
+// if you click on save (you  will do all this )
+
+
+// if you go for the cloudFlare 
+//it will Cloudflare will periodically check for nameserver updates ---> Check nameserver now 
+
+
+// Cloudflare is  now checking the nameserver for devtinder.in.Please wait a few hours for an update 
+
+//continue 
+// it will say Pending Nameserver Update 
+
+//-----------------------------------------------------------------
+
+// # Adding a custom Domain name 
+// -Purchased domain name from godaddy
+// - signup on cloudflare & add a new domain name  (cloudflare will automatically give the nameserver)
+// - change the nameservers on godaddy and point it to cloudflare 
+// - wait for sometime till your nameserver  are  updated 
+
+// when  you purchase a domain name (there is domain register ,it can be anyone (hostinger,go daddy ,Blue host))
+
+// you can take the domain name from anywhere ,domain register  means place where you are taking the domain name from 
+
+//where the domain name point to  that dns records  is managed by  your name server (it is of cloud flare)
+
+// cloud flare will manage the dns records for your domain name 
+
+//dns ,nameserver ,domain register 
+
+
+
+// PENDING Nameserver Update 
+// devtinder.in
+// devtinder.is not active on CloudFlare yet 
+
+
+// it took around 15 min 
+// cloudflare is protecting your sides 
+// the whole name is manged by cloudflare 
+
+
+// i am deleting one A record 
+// i want one A record should point out to this 
+
+// this ip  which we have 43.204.96.49/ 
+
+// in cloud flare  
+// Type A  Name : devtinder.in    ipv4 address : 43.204.96.49  Proxy status: on 
+
+// then click on save it 
+
+// there is other name as well CNAME (LEAVE AS IT)
+// There is another as well CNAME( WWW)   CONTENT:devtinder.in
+
+
+// when you type the devtinder.in  (it will point out to the your server)
+// it will point out your website
+
+// Everything is working perfectly fine 
+
+// remember you need to change the nameserver in the go daddy (it took me around 15 min)
+
+
+// DNS Record: A devtinder.in 43.204.96.49
+
+
+// now let  see ssl certificate to your website 
+
+// devtinder is not secure right now 
+
+// go to the cloudflare 
+//in that SSL/TLS  -> over here go for configure -> select the Automatic SSL/TLS (DEFAULT)
+//Selected 
+
+
+// go to the custom SSl/tls (Selected )
+// over there select the flexible 
+//it will make your domain secure 
+
+//from the browser to  cloudflare ,your  network is secure by the lock 
+// you will need lock for the server as well
+
+
+// Then the network will be flexible 
+
+//Over the SSL/TLS 
+//GO TO THE Edge certificates  (there would be option of Automatic Https Rewrites)
+// you need to turn this on 
+
+//if you turn this off then your http  site will not  redirected to  https site 
+//the good practice it should automatically redirect it 
+
+//your website is running on https now 
+
+// browser -> lock -> Cloudflare -> Origin Server 
+
+// you can setup the full ssl as well 
+
+
+// Enable SSL for website 
+//if you go to the devtinder.in (it will be loaded in the https fashion)
+//this is how you enable ssl and map your domain name 
+// there is nothing stopping you (you can apply you application to the server and add the domain name to it)
+//purchase the domain name (Such that make your project end to end )
+
+// we learn how to deploy the frontend 
+// how to deploy the backend 
+// how to map to the domain name 
+
+
+// ----------------------------------------
+// Sending email to the user through Amazon SES (Simple Email Service)
+
+// YOU NEED TO FIRST  SIGN UP FOR THE AMAZON SES 
+
+//AMAZON SES 
+//Click on the Sign it in the console
+
+
+// AMAZON Simple Email Service 
+// we will learn how to send email to the user 
+
+//search 
+// IAM -> PERMISSION TO DIFFERENT SERVICE in Aws (here we will give permission to the user)
+// Click on user in that Create a new user 
+
+// Username :ses-user 
+// click next 
+
+// Attach  policies directly 
+
+// amazon ses  
+// Should i give them  full access 
+// Should i give them read only access
+
+
+// i want full access
+// AmazonSESFullAccess 
+
+
+//i clicked  on next 
+//it would give summary over here 
+
+// you can add a tag 
+
+// you can click on creating a user 
+// it will create a user with a permission for SES 
+
+
+// Search for Ses (Simple Email Service)
+
+// Amazon Simple Email Service 
+
+// i need to create an identity 
+//there might me something to do it 
+
+// Sending limits 
+// Your Amazon SES account is in the sandbox in Asia Pacific (Mumbai) (View Get set up page)
+// Click on it 
+
+// then click on create the identity 
+
+//Identity type 
+// Domain  name
+// devtinder.in
+
+// identity type
+// Easy DKIM
+
+// DKIM signing key length
+//RSA_1024_BIT
+
+
+//Publish DNS records to ROuteS3 -->Enabled
+//DKIM signtures -->Enabled
+
+
+// then click on creating identity (it will ask for cname to be verified )
+// here it will verify the domain name 
+
+// there they will provide the Publish Dns records 
+// CNAME setup the dns records 
+
+
+//Login  to the cloud flare 
+
+// Go to the Dns 
+// Records 
+
+// copy the CNAME from the amazon 
+
+// add record 
+
+// Type 
+
+//CNAME    
+
+// Copy the name from it 
+//Copy the Target from it as well
+
+// Please turn off the proxy 
+
+// Then create the another CName in it 
+
+
+// then again the CNAME AS WELL 
+// COPY THE NAME AND THE VALUE as well
+
+
+// do for all the cname it has 
+
+
+// it will say the detection of the records may take up to 72 hours 
+
+// we have to wait for it 
+// as the devtinder.in is our domain
+
+
+// it took around ten minutes 
+
+//now you will see verified tick mark 
+
+// Amazon SES => gET SET UP 
+
+// WE CAN SEND EMAIL THROUGH THE SAND BOX 
+//BUT IT HAS LIMIT AS WELL
+
+// PLEASE GO THROUGH THIS APPROACH 
+//GO LIVE FOR THE SAND BOX 
+
+// Request  production access 
+
+// Request details 
+// Mail type => Transactional 
+
+
+// Website url 
+// https://devtinder.in/
+
+// Additional contacts
+//support@namastedev.com
+
+// English 
+
+//Submit the request 
+
+// here  we have done the set up for the production
+
+//currently You are in Sandbox // 1 email per second 
+
+
+// write code to sent email and key for it 
+
+// go to the IAM
+// THE USER THAT WE HAVE CREATED 
+// CLICK ON IT 
+
+//Security crendentials 
+
+// you have to create the access key 
+
+// other 
+//Description tag value  (this is optional)
+
+//create the access key 
+// copy the secret accesss key 
+
+
+
+
+//.gitignore
+//node_modules
+//.env
+
+//.env
+// AWS_ACCESS_KEY="SDFVWVEWVWEVEVWWVWRVWRV"
+// AWS_SECRET_KEY="AFAVEVAEVAEVAEVEVE"
+// JWS_SECRET="DEV@Tinder$790"
+// PORT=7777
+// DB_CONNECTION_SECRET=" "
+
+
+
+
+
+// SEARCH  aws ses  nodejs documentation 
+// https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/ses-examples-sending-email.html
+
+// Load the AWS SDK for Node.js
+// var AWS = require("aws-sdk");
+// // Set the region
+// AWS.config.update({ region: "REGION" });
+
+// // Create sendEmail params
+// var params = {
+//   Destination: {
+//     /* required */
+//     CcAddresses: [
+//       "EMAIL_ADDRESS",
+//       /* more items */
+//     ],
+//     ToAddresses: [
+//       "EMAIL_ADDRESS",
+//       /* more items */
+//     ],
+//   },
+//   Message: {
+//     /* required */
+//     Body: {
+//       /* required */
+//       Html: {
+//         Charset: "UTF-8",
+//         Data: "HTML_FORMAT_BODY",
+//       },
+//       Text: {
+//         Charset: "UTF-8",
+//         Data: "TEXT_FORMAT_BODY",
+//       },
+//     },
+//     Subject: {
+//       Charset: "UTF-8",
+//       Data: "Test email",
+//     },
+//   },
+//   Source: "SENDER_EMAIL_ADDRESS" /* required */,
+//   ReplyToAddresses: [
+//     "EMAIL_ADDRESS",
+//     /* more items */
+//   ],
+// };
+
+// // Create the promise and SES service object
+// var sendPromise = new AWS.SES({ apiVersion: "2010-12-01" })
+//   .sendEmail(params)
+//   .promise();
+
+// // Handle promise's fulfilled/rejected states
+// sendPromise
+//   .then(function (data) {
+//     console.log(data.MessageId);
+//   })
+//   .catch(function (err) {
+//     console.error(err, err.stack);
+//   });
+
+
+//YOU CAN FOUND THE CODE IN GITHUB
+// Sending an email documentation code 
+// we have to use go through the documentation
+
+
+// Go to the Amazon SES 
+//Configuration 
+// identies 
+
+// you can create an identity 
+// Domain and email adddress identity 
+// DEVTINDER.IN IS THE DOMAIN I HAVE PROVE IT 
+// YOU CAN ALSO VERIFY THE EMAIL ADDRESS 
+
+
+// i can send email FROM ANY DEVTINDER ACCOUNT 
+// AKSHAYTINDER.IN TO AKSHATY@GMAIL.COM
+
+// https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/welcome.html
+// https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/getting-started-nodejs.html
+
+// npm i @aws-sdk/client-s3
+
+// https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/javascript_ses_code_examples.html
+// Aws >Documentation >Aws SDK FOR jAVASCRIPT >DEVELOPER Guide for SDK Version 3
+
+// v2 is still very popular 
+
+// in this lecture we are teching v3 
+
+// Get started  with Node.js
+
+//npm i @aws-sdk/client-s3
+
+// utils 
+// sesClient.js
+
+// https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javascriptv3/example_code/ses/src/libs/sesClient.js
+
+//npm i @aws-sdk/client-ses
+
+
+// const { SESClient } =require("@aws-sdk/client-ses");
+
+
+
+
+// const REGION = "ap-south-1";
+
+// // const sesClient = new SESClient({ region: REGION ,
+// // credentials:{
+//    accessKeyId: process.env.Aws_Access_Key,
+//    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+
+//  //}});
+
+// module.exports={sesClient}
+
+// YOU HAVE CONFIGURE YOUR SES CLIENT 
+
+
+// utils
+// sendEmail.js
+
+// const  {SendEMailCommand} =require("@aws-sdk/client-ses");
+// const  {sesClient}=require("./libs/sesClient.js");
+
+// const createSendEmailCommand = (toAddress, fromAddres,subject,body) => {
+//   return new SendEmailCommand({
+//     Destination: {
+//       /* required */
+//       CcAddresses: [
+//         /* more items */
+//       ],
+//       ToAddresses: [
+//         toAddress,
+//         /* more To-email addresses */
+//       ],
+//     },
+//     Message: {
+//       /* required */
+//       Body: {
+//         /* required */
+//         Html: {
+//           Charset: "UTF-8",
+//           Data: "<h1>${body}</h1>",
+//         },
+//         Text: {
+//           Charset: "UTF-8",
+//           Data: "This is the text format email",
+//         },
+//       },
+//       Subject: {
+//         Charset: "UTF-8",
+//         Data: subject,
+//       },
+//     },
+//     Source: fromAddress,
+//     ReplyToAddresses: [
+//       /* more items */
+//     ],
+//   });
+// };
+
+// the email and domain should be verified in amazon ses 
+// other it will not go 
+
+// const run = async (subject,body) => {
+//   const sendEmailCommand = createSendEmailCommand(
+//     "akshaysaini.in@gmail.com",
+//     "akshay@devtinder.in",
+//      subject,
+//      body
+//   );
+
+//   try {
+//     return await sesClient.send(sendEmailCommand);
+//   } catch (caught) {
+//     if (caught instanceof Error && caught.name === "MessageRejected") {
+//       
+//       const messageRejectedError = caught;
+//       return messageRejectedError;
+//     }
+//     throw caught;
+//   }
+// };
+
+// // snippet-end:[ses.JavaScript.email.sendEmailV3]
+// module.exports={run}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2530,3 +3077,33 @@
 // The main job of express.js is go when by one 
 // whenever you got the route ,it will try to  go and check the all the middleware
 // all the requesthandlers ,from wherever it got the response 
+
+
+
+// Adding a custon Domain name 
+
+// -- purchased domain name from godaddy
+// -- sign up on cloudflare & add a new domain name
+// -- change the nameservers on godaddy and point it to cloudflare 
+// --wait for sometime till your nameservers are updated ~15 minutes 
+// -- DNS record: A devtinder.in 43.2024.96.49
+// -- Enable SSL for website 
+
+
+//Sending Email via SES 
+// cREATE A iam USER 
+// gIVE aCCESS TO AmazonSESFullAccess
+// Amazon  SES :Create an iDENTITY 
+// vERIFY YOUR DOMAIN NAME
+// Verify your email address identity 
+// Install Aws sdk -v3
+//Code example https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javascriptv3/example_code/ses#code-examples
+// Setup SesClient
+// Access Crendentials should be  created in  iAm under  SecurityCrendentials tab
+// Add the crendentials to the env file 
+// Write code for SESClient
+// Write code for Sending email address 
+// Make the email dynamic by passing more params to the run function 
+
+
+

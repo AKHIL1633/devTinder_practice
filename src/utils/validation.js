@@ -1,11 +1,13 @@
 const validator=require('validator')
 
 const validateSignUpData =(req)=>{
-   const {firstName,lastName,emailId,password}=req.body;
-   if(!firstName || !lastName){
+   const {firstName,lastName,emailId,password}=req.body; // destructuring this object 
+
+   if(!firstName || !lastName){      // checking if the firstname and lastname exist or not ,also you can check the length as well 
+                                     // you can rely on the check of the schema level as well to make your api as secure as possible
     throw new Error("Name is not valid");
    }
-  else if(!validator.isEmail(emailId))
+  else if(!validator.isEmail(emailId))   /// we have one library of validator  
    {
     throw new Error("Email is not valid ");
    }
