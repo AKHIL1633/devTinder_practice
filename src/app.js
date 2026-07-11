@@ -205,24 +205,75 @@ app.use("/",userRouter);
 
 
 
+// Bcrypt 
 
-// api creation then we 
-// app.post("/signup",async(req,res)=>{
-//   // Validation of data is required in sign up
-//     validateSignUpData(req);
+// npm i bcrypt
+//***************************************************************************** */
+// Notes to remember 
 
-//     const {firstName,lastName,emailId,password}=req.body;
-//   // Encrypt the password
-//   // it will create the hash salt should be applied 
-//   // the more salt will be the more  encrypted password would be 
+// Validate data in SignupAPI
+
+// Install bcrypt package
+
+// Create PasswordHash using bcrypt.hash and save the user with encrypted password
+
+// then move to the login api creation
+
+// create the login api 
+
+// Write the logic of it 
+
+//compare passwords and throw errors if email or password is invalid
+
+//************************************************************************* */
+// explain this concept with the help of the sign up api 
+
+
+// bcrypt.hash will return you the promises 
+
+// bcrypt.hash(myPlaintextPassword,saltRounds).then(function(hash)){
+//       // Store hash in your password DB
+// }
+
+
+// Create the helper function --- utils --> validation.js -> validatesignupdata
+// we need to used encrypt the password ,it will give to hash the function and also to verify it as well
+
+// WE WILL GET THE PASSWORD from the req.body
+
+//const {password}=req.body
+
+
+
+//   app.post("/signup",async(req,res)=>{
+
+//   try{
+
+//   Validation of data is required in sign up
+
+//   validateSignUpData(req);
+
+//   const {firstName,lastName,emailId,password}=req.body;
+
+//   Encrypt the password
+
+//   it will create the hash salt should be applied 
+//   the more salt will be the more  encrypted password would be 
 
 //   const passwordHash=await bcrypt.hash(password,10);
+
 //   console.log(passwordHash);
-//   //once you encrypt it you cant decrypt it 
+
+//   once you encrypt it you cant decrypt it ,only the user will know if he had remembered 
+
+//   ***** const user=new User(req.body) ***** 
+
+//   ***** await user.save() ****** , it is the bad way to create the instance
 
 
-//   // creating a new instance of the User model 
-//   // only these fields are allowed
+//   creating a new instance of the User model 
+
+//   only these fields are allowed
 //      const user=new User({
 //       firstName,
 //       lastName,
@@ -230,15 +281,75 @@ app.use("/",userRouter);
 //       password: passwordHash,
 //      });
 
-//      try {
 //      await user.save();
+
 //      res.send("User Added successfully");
+
 //      }catch (err){
+
 //       res.status(400).send("Error:" + err.message);
+
 //      }
 // });
 
+//************************************************************************************************* */
+
 // i want to use this api when user is logged in 
+
+// there is  a function to check the password as well 
+
+// bcrypt.compare(myPlaintextPassword,hash).then(function(result){
+// result == true
+// })
+
+// please never mention the explictily that email is present or not
+
+// we have store the password also comare it as well 
+
+// next lecture we will learn about the hash
+
+
+
+
+// app.post("/login",async(req,res)=>{
+//   try{
+//   const {emailId,password}=req.body;
+
+//   const user=await User.findOne({emailId:emailId});
+
+//   if(!user){
+//     /********throw new Error("Email id is not present in Db");****/
+//     / throw new Error("Invalid crendentials")
+//   }
+
+
+//   to need to get the hash password ,first we have to check the email id if it is present or not ,then we can check the hashpassword
+
+//   const isPasswordValid=await bcrypt.compare(password,user.password);
+
+//   if(isPasswordValid){
+
+//     res.send("Login Successfull!!");
+
+//   }
+
+//   else {
+
+//    /***** throw new Error("Password is not  correct"); ***********/
+
+//    throw new Error("Invalid crendentials");
+
+//   }
+
+//   }catch(err){
+
+//     res.status(400).send("ERROR : " + err.message)
+
+//   }
+// });
+
+
+
 //add userAuth to make this api more secure 
 //this api will be called when my api is valid 
 //This is how you can authenticate the request 

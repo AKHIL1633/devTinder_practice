@@ -19,6 +19,8 @@ const User=require("../models/user");
 
 // We have to check touserId should be present in th db 
 
+const {sendEMail}=require("../utils/sendEmail "); 
+
 
 
 requestRouter.post("/request/send/:status/:toUserId",userAuth,async(req,res)=>{
@@ -59,6 +61,17 @@ requestRouter.post("/request/send/:status/:toUserId",userAuth,async(req,res)=>{
    });
 
    const data=await connectionRequest.save();
+   
+  //  const emailRes=await sendEmail.run();
+
+  const emailRes=await sendEmail.run("A new friend  request from "
+    + req.user.firstName + "is" + status + "in" + toUser.firstName
+  );
+
+   console.log(emailRes);
+
+  // Whenever someone is sending the connection request  a email will be triggered 
+  // First of all we have created the SES CLIENT 
 
   //  res.json({
   //   message: "Connection Request Sent Successfully!",
