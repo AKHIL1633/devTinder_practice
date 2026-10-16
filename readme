@@ -597,7 +597,7 @@
 
 // const connectDB = async () => {
 //   await mongoose.connect(
-//     "mongodb://namsatedev:***REMOVED***@ac-f9zcq3a-shard-00-00.awsi177.mongodb.net:27017,ac-f9zcq3a-shard-00-01.awsi177.mongodb.net:27017,ac-f9zcq3a-shard-00-02.awsi177.mongodb.net:27017/?ssl=true&replicaSet=atlas-14ntx8-shard-0&authSource=admin&appName=NamasteNode"
+//     "<YOUR_MONGODB_URI>"
 //   );
 // };
 
@@ -1517,7 +1517,7 @@
 //   throw new Error("Invalid Token");
 // }
 
-// const decodeMessage=await jwt.verify(token,"***REMOVED***");
+// const decodeMessage=await jwt.verify(token,process.env.JWT_SECRET);
 // // console.log(decodeMessage);
 // const{_id}=decodeMessage;
 // // console.log("Logged In user is: " +  _id);
@@ -1703,7 +1703,7 @@
 
     
 
-//       const token=await jwt.sign({_id:user._id},"***REMOVED***",{
+//       const token=await jwt.sign({_id:user._id},process.env.JWT_SECRET,{
 //         expiresIn: "7d",
 //       });
 
@@ -1750,7 +1750,7 @@
 // //   throw new Error("Invalid Token");
 // // }
 
-// // const decodeMessage=await jwt.verify(token,"***REMOVED***");
+// // const decodeMessage=await jwt.verify(token,process.env.JWT_SECRET);
 // // // console.log(decodeMessage);
 // // const{_id}=decodeMessage;
 // // // console.log("Logged In user is: " +  _id);
@@ -1799,7 +1799,7 @@
 
 // userSchema.methods.getJWT=async function(){
 //   const user=this
-//   const token=await jwt.sign({_id: user._id},"***REMOVED***",{
+//   const token=await jwt.sign({_id: user._id},process.env.JWT_SECRET,{
 //     expiresIn:"7d",
 //   });
 //   return token;
@@ -2738,7 +2738,7 @@
 //.env
 // AWS_ACCESS_KEY="SDFVWVEWVWEVEVWWVWRVWRV"
 // AWS_SECRET_KEY="AFAVEVAEVAEVAEVEVE"
-// JWS_SECRET="***REMOVED***"
+// JWT_SECRET="<your-jwt-secret>"
 // PORT=7777
 // DB_CONNECTION_SECRET=" "
 

@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const express=require("express");
 
 const connectDB =require("./config/database")
@@ -172,7 +174,7 @@ app.use("/",userRouter);
 // //   throw new Error("Invalid Token");
 // // }
 
-// // const decodeMessage=await jwt.verify(token,"***REMOVED***");
+// // const decodeMessage=await jwt.verify(token,process.env.JWT_SECRET);
 // // // console.log(decodeMessage);
 // // const{_id}=decodeMessage;
 // // // console.log("Logged In user is: " +  _id);

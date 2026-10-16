@@ -3,7 +3,7 @@ const { MongoClient } =  require("mongodb")
 
 
 const url =
-"mongodb+srv://namsatedev:***REMOVED***@namastenode.awsi177.mongodb.net/?appName=NamasteNode"
+process.env.MONGODB_URI
 
 const client=new MongoClient(url);
 

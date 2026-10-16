@@ -6,7 +6,7 @@ const mongoose=require("mongoose");
 
 const connectDB = async () => {
   await mongoose.connect(
-   "mongodb://namsatedev:***REMOVED***@ac-f9zcq3a-shard-00-00.awsi177.mongodb.net:27017,ac-f9zcq3a-shard-00-01.awsi177.mongodb.net:27017,ac-f9zcq3a-shard-00-02.awsi177.mongodb.net:27017/devTinder?ssl=true&replicaSet=atlas-14ntx8-shard-0&authSource=admin&appName=NamasteNode"
+   process.env.MONGODB_URI
   );
 };
 

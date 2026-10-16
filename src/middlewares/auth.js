@@ -38,7 +38,7 @@ const userAuth =async(req,res,next)=>{
 
     }
 
-    const decodedObj=await jwt.verify(token,"***REMOVED***");
+    const decodedObj=await jwt.verify(token,process.env.JWT_SECRET);
 
     const{_id }=decodedObj;
 
